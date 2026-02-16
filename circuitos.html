@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código y Funciones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Efecto Glitch en el título */
+        .glitch-title {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            color: #ff1493;
+            position: relative;
+            margin: 40px 0;
+            animation: glitch-skew 1s infinite;
+        }
+
+        .glitch-title::before,
+        .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-title::before {
+            left: 2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-title::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ff00;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(17px, 9999px, 94px, 0);
+            }
+            10% {
+                clip: rect(85px, 9999px, 29px, 0);
+            }
+            20% {
+                clip: rect(101px, 9999px, 3px, 0);
+            }
+            30% {
+                clip: rect(44px, 9999px, 68px, 0);
+            }
+            40% {
+                clip: rect(52px, 9999px, 96px, 0);
+            }
+            50% {
+                clip: rect(75px, 9999px, 15px, 0);
+            }
+            60% {
+                clip: rect(30px, 9999px, 88px, 0);
+            }
+            70% {
+                clip: rect(10px, 9999px, 45px, 0);
+            }
+            80% {
+                clip: rect(65px, 9999px, 20px, 0);
+            }
+            90% {
+                clip: rect(5px, 9999px, 100px, 0);
+            }
+            100% {
+                clip: rect(90px, 9999px, 55px, 0);
+            }
+        }
+
+        @keyframes glitch-skew {
+            0% {
+                transform: skew(0deg);
+            }
+            10% {
+                transform: skew(1deg);
+            }
+            20% {
+                transform: skew(-1deg);
+            }
+            30% {
+                transform: skew(0deg);
+            }
+            40% {
+                transform: skew(2deg);
+            }
+            50% {
+                transform: skew(-2deg);
+            }
+            60% {
+                transform: skew(0deg);
+            }
+            70% {
+                transform: skew(-1deg);
+            }
+            80% {
+                transform: skew(1deg);
+            }
+            90% {
+                transform: skew(0deg);
+            }
+            100% {
+                transform: skew(0deg);
+            }
+        }
+
+        /* Sección de código */
+        .code-section {
+            background-color: #1a1a1a;
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+        }
+
+        .code-section h2 {
+            color: #ff1493;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .code-block {
+            background-color: #0d0d0d;
+            border-left: 4px solid #ff1493;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .code-block code {
+            color: #00ff00;
+        }
+
+        /* Glosario de funciones */
+        .glossary-section {
+            background-color: #1a1a1a;
+            border: 2px solid #ff1493;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+        }
+
+        .glossary-section h2 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .function-item {
+            background-color: #0d0d0d;
+            border-left: 4px solid #ff1493;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .function-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+        }
+
+        .function-name {
+            color: #00ffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .function-description {
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .function-params {
+            color: #ff69b4;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch-title {
+                font-size: 2rem;
+            }
+
+            .code-section,
+            .glossary-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Título con efecto glitch -->
+        <h1 class="glitch-title" data-text="Calculadora Matemática">Calculadora Matemática</h1>
+
+        <!-- Sección de código -->
+        <div class="code-section">
+            <h2>📝 Código del Ejemplo</h2>
+            <div class="code-block">
+                <code>
+// Calculadora Matemática Simple
+function sumar(a, b) {
+    return a + b;
+}
+
+function restar(a, b) {
+    return a - b;
+}
+
+function multiplicar(a, b) {
+    return a * b;
+}
+
+function dividir(a, b) {
+    if (b === 0) {
+        return "Error: División por cero";
+    }
+    return a / b;
+}
+
+function calcularPotencia(base, exponente) {
+    return Math.pow(base, exponente);
+}
+
+function calcularRaizCuadrada(numero) {
+    if (numero < 0) {
+        return "Error: No se puede calcular raíz de número negativo";
+    }
+    return Math.sqrt(numero);
+}
+
+// Ejemplo de uso
+console.log(sumar(5, 3));              // 8
+console.log(restar(10, 4));            // 6
+console.log(multiplicar(7, 6));        // 42
+console.log(dividir(20, 4));           // 5
+console.log(calcularPotencia(2, 3));   // 8
+console.log(calcularRaizCuadrada(16)); // 4
+                </code>
+            </div>
+        </div>
+
+        <!-- Glosario de funciones -->
+        <div class="glossary-section">
+            <h2>📚 Glosario de Funciones</h2>
+
+            <div class="function-item">
+                <div class="function-name">sumar(a, b)</div>
+                <div class="function-description">
+                    Realiza la suma de dos números y retorna el resultado.
+                </div>
+                <div class="function-params">
+                    Parámetros: a (número), b (número) | Retorna: número
+                </div>
+            </div>
+
+            <div class="function-item">
+                <div class="function-name">restar(a, b)</div>
+                <div class="function-description">
+                    Resta el segundo número del primero y retorna el resultado.
+                </div>
+                <div class="function-params">
+                    Parámetros: a (número), b (número) | Retorna: número
+                </div>
+            </div>
+
+            <div class="function-item">
+                <div class="function-name">multiplicar(a, b)</div>
+                <div class="function-description">
+                    Multiplica dos números y retorna el producto.
+                </div>
+                <div class="function-params">
+                    Parámetros: a (número), b (número) | Retorna: número
+                </div>
+            </div>
+
+            <div class="function-item">
+                <div class="function-name">dividir(a, b)</div>
+                <div class="function-description">
+                    Divide el primer número entre el segundo. Incluye validación para evitar división por cero.
+                </div>
+                <div class="function-params">
+                    Parámetros: a (número), b (número) | Retorna: número o string (error)
+                </div>
+            </div>
+
+            <div class="function-item">
+                <div class="function-name">calcularPotencia(base, exponente)</div>
+                <div class="function-description">
+                    Calcula la potencia de un número elevado a un exponente específico.
+                </div>
+                <div class="function-params">
+                    Parámetros: base (número), exponente (número) | Retorna: número
+                </div>
+            </div>
+
+            <div class="function-item">
+                <div class="function-name">calcularRaizCuadrada(numero)</div>
+                <div class="function-description">
+                    Calcula la raíz cuadrada de un número. Incluye validación para números negativos.
+                </div>
+                <div class="function-params">
+                    Parámetros: numero (número) | Retorna: número o string (error)
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
