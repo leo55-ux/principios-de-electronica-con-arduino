@@ -226,13 +226,14 @@
 <body>
     <div class="container">
         <!-- Título con efecto glitch -->
-        <h1 class="glitch-title" data-text="Calculadora Matemática">Circuio en serie y paralelo</h1>
+        <h1 class="glitch-title" data-text="Circuito en serie y paralelo">Circuito en serie y paralelo</h1>
 
         <!-- Sección de código -->
         <div class="code-section">
             <h2>📷 Imagen del Ejemplo</h2>
-            <div class="code-block">
-                 src="https://short.do/tu0yzG" width="100" height="80"> </
+            <div class="code-block"> 
+            <div class="concepto-icon"><img src="https://short.do/tu0yzG" alt="Logo" width="800" height="400"> </div>
+                
             </div>
         </div>
 
@@ -241,62 +242,36 @@
             <h2>👣Pasos a seguir</h2>
 
             <div class="function-item">
-                <div class="function-name">Paso uno</div>
+                <div class="function-name">(directa)Paso uno</div>
                 <div class="function-description">
-                    Realiza la suma de dos números y retorna el resultado.
+                    Para este se necesita colocar en una protoboard los leds de manera que no se toquen.
                 </div>
                 <div class="function-params">
-                    Parámetros: a (número), b (número) | Retorna: número
+                    (En serie):los leds se ponen de tal manera que quede un lado positivo con un negativo
+                    y asi hasta los que tu quieras
+
+                    tip:siempre checa que los leds no esten fundidos, por que si no funciona uno no prende ninguno
                 </div>
             </div>
 
             <div class="function-item">
-                <div class="function-name">restar(a, b)</div>
+                <div class="function-name">(directa)Paso dos</div>
                 <div class="function-description">
-                    Resta el segundo número del primero y retorna el resultado.
+                    Posteriormente coloca en los leds, de cada lado positivo una reistencia de 220 ohmios.
                 </div>
                 <div class="function-params">
-                    Parámetros: a (número), b (número) | Retorna: número
+                    (En serie): Coloca la resistencia de 220 ohmios en el lado positivo de un led.
                 </div>
             </div>
 
             <div class="function-item">
-                <div class="function-name">multiplicar(a, b)</div>
+                <div class="function-name">(directa)Paso tres</div>
                 <div class="function-description">
-                    Multiplica dos números y retorna el producto.
+                    conectar cada resitencia a el lado positivo de una pila y el lado negativo de los leds con el negativo de la pila
                 </div>
                 <div class="function-params">
-                    Parámetros: a (número), b (número) | Retorna: número
-                </div>
-            </div>
-
-            <div class="function-item">
-                <div class="function-name">dividir(a, b)</div>
-                <div class="function-description">
-                    Divide el primer número entre el segundo. Incluye validación para evitar división por cero.
-                </div>
-                <div class="function-params">
-                    Parámetros: a (número), b (número) | Retorna: número o string (error)
-                </div>
-            </div>
-
-            <div class="function-item">
-                <div class="function-name">calcularPotencia(base, exponente)</div>
-                <div class="function-description">
-                    Calcula la potencia de un número elevado a un exponente específico.
-                </div>
-                <div class="function-params">
-                    Parámetros: base (número), exponente (número) | Retorna: número
-                </div>
-            </div>
-
-            <div class="function-item">
-                <div class="function-name">calcularRaizCuadrada(numero)</div>
-                <div class="function-description">
-                    Calcula la raíz cuadrada de un número. Incluye validación para números negativos.
-                </div>
-                <div class="function-params">
-                    Parámetros: numero (número) | Retorna: número o string (error)
+                    (En serie): Donde esta la resistencia colocar un jumper que conecte ese lado con el positivo de una pila y el 
+                    lado negativo con el lado negativo de una pila(por consecuente se prende el led de en medio)
                 </div>
             </div>
         </div>
