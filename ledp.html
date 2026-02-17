@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conceptos Básicos de Arduino</title>
+    <title>Primer Circuito - LED con Interruptor</title>
     <style>
         * {
             margin: 0;
@@ -182,46 +182,50 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* Sección de conceptos */
-        .conceptos-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        /* Sección de pasos */
+        .pasos-section {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        .concepto-card {
+        .paso-card {
             background: linear-gradient(135deg, white, #fff9fc);
             border-radius: 25px;
-            padding: 2rem;
+            padding: 2.5rem;
             box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2),
                         0 0 0 2px rgba(255, 168, 225, 0.3);
             transition: all 0.4s ease;
-            cursor: pointer;
             position: relative;
             overflow: hidden;
             animation: cardAppear 0.6s ease backwards;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
-        .concepto-card:nth-child(1) { animation-delay: 0.1s; }
-        .concepto-card:nth-child(2) { animation-delay: 0.2s; }
-        .concepto-card:nth-child(3) { animation-delay: 0.3s; }
-        .concepto-card:nth-child(4) { animation-delay: 0.4s; }
-        .concepto-card:nth-child(5) { animation-delay: 0.5s; }
-        .concepto-card:nth-child(6) { animation-delay: 0.6s; }
+        .paso-card:nth-child(1) { animation-delay: 0.1s; }
+        .paso-card:nth-child(2) { animation-delay: 0.2s; }
+        .paso-card:nth-child(3) { animation-delay: 0.3s; }
+        .paso-card:nth-child(4) { animation-delay: 0.4s; }
+        .paso-card:nth-child(5) { animation-delay: 0.5s; }
+        .paso-card:nth-child(6) { animation-delay: 0.6s; }
+        .paso-card:nth-child(7) { animation-delay: 0.7s; }
 
         @keyframes cardAppear {
             from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.9);
+                transform: translateX(-50px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateX(0) scale(1);
             }
         }
 
-        .concepto-card::before {
+        .paso-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -232,37 +236,49 @@
             transition: left 0.6s;
         }
 
-        .concepto-card:hover::before {
+        .paso-card:hover::before {
             left: 100%;
         }
 
-        .concepto-card:hover {
-            transform: translateY(-10px) scale(1.03);
+        .paso-card:hover {
+            transform: translateX(10px) scale(1.02);
             box-shadow: 0 25px 60px rgba(255, 107, 157, 0.4),
                         0 0 0 3px rgba(255, 168, 225, 0.5),
                         0 0 30px rgba(194, 57, 179, 0.3);
         }
 
-        .concepto-icon {
+        .paso-number {
             width: 80px;
             height: 80px;
+            min-width: 80px;
             background: linear-gradient(135deg, #ff6b9d, #c239b3);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
-            animation: iconPulse 2s ease-in-out infinite;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+            position: relative;
         }
 
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 10px 35px rgba(255, 107, 157, 0.6); }
+        .paso-number::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            top: 0;
+            left: 0;
         }
 
-        .concepto-title {
+        .paso-content {
+            flex: 1;
+        }
+
+        .paso-title {
             font-size: 1.8rem;
             background: linear-gradient(135deg, #ff6b9d, #c239b3);
             -webkit-background-clip: text;
@@ -273,28 +289,98 @@
             letter-spacing: 0.5px;
         }
 
-        .concepto-description {
+        .paso-description {
             color: #555;
             line-height: 1.8;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
         }
 
-        .concepto-number {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, white, #fff0f6);
+        .paso-tip {
+            background: linear-gradient(135deg, #fff9fc, #ffe6f0);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid #ff6b9d;
+            margin-top: 1rem;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .paso-tip-icon {
+            font-size: 1.3rem;
+            margin-top: 0.1rem;
+        }
+
+        .paso-tip-text {
             color: #c239b3;
-            border-radius: 50%;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Lista de materiales */
+        .materiales-box {
+            background: linear-gradient(135deg, white, #fff9fc);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2),
+                        0 0 0 2px rgba(255, 168, 225, 0.3);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .materiales-title {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.3rem;
-            box-shadow: 0 5px 20px rgba(194, 57, 179, 0.4),
-                        0 0 0 3px rgba(255, 255, 255, 0.8);
+            gap: 0.5rem;
+        }
+
+        .materiales-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .material-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #fff0f6, white);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .material-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
+        }
+
+        .material-icon {
+            font-size: 1.5rem;
+        }
+
+        .material-name {
+            color: #555;
+            font-weight: 600;
         }
 
         /* Botón volver */
@@ -331,19 +417,27 @@
                 font-size: 1.1rem;
             }
 
-            .conceptos-section {
+            .paso-card {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                padding: 2rem;
             }
 
-            .concepto-title {
+            .paso-number {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
                 font-size: 1.5rem;
+                margin: 0 auto;
             }
 
-            .concepto-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
+            .paso-title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+
+            .materiales-list {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -360,7 +454,11 @@
                 padding: 1rem;
             }
 
-            .concepto-card {
+            .paso-card {
+                padding: 1.5rem;
+            }
+
+            .materiales-box {
                 padding: 1.5rem;
             }
         }
@@ -373,13 +471,155 @@
     <div class="decorative-circle circle-3"></div>
 
     <div class="container">
-        <!-- Header con título del tema -->
+        <!-- Header con título -->
         <div class="header">
-            <div class="emoji-decoration">🎇</div>
-            <h1>Circuito en serie y paralelo</h1>
-            <p class="subtitle">Primeros circuitos</p>
+            <div class="emoji-decoration">💡</div>
+            <h1>Primer Circuito</h1>
+            <p class="subtitle">LED con Interruptor en Protoboard</p>
         </div>
-        <!--aqui pongan lo demas del proyecto imagenes y pasos-->
+
+        <!-- Materiales necesarios -->
+        <div class="materiales-box">
+            <h2 class="materiales-title">
+                <span>🛠️</span>
+                Materiales Necesarios
+            </h2>
+            <div class="materiales-list">
+                <div class="material-item">
+                    <span class="material-icon">🔴</span>
+                    <span class="material-name">1 LED (cualquier color)</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">⚡</span>
+                    <span class="material-name">1 Resistencia 220Ω</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔘</span>
+                    <span class="material-name">1 Interruptor (Push Button)</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">📋</span>
+                    <span class="material-name">1 Protoboard</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔌</span>
+                    <span class="material-name">Cables de conexión</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔋</span>
+                    <span class="material-name">Fuente de 5V (Arduino o batería)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de pasos -->
+        <div class="pasos-section">
+            <!-- Paso 1 -->
+            <div class="paso-card">
+                <div class="paso-number">1</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Identificar el LED</h3>
+                    <p class="paso-description">
+                        Localiza el LED y observa sus dos patas. La pata más larga es el ánodo (positivo +) y la pata más corta es el cátodo (negativo -). También puedes identificarlos mirando el LED: el lado plano corresponde al cátodo.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">💡</span>
+                        <span class="paso-tip-text">Tip: Nunca conectes un LED directamente a la fuente de voltaje sin resistencia, se quemará.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="paso-card">
+                <div class="paso-number">2</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Colocar el LED en el Protoboard</h3>
+                    <p class="paso-description">
+                        Inserta el LED en la protoboard. Coloca el ánodo (pata larga) en una fila y el cátodo (pata corta) en otra fila diferente. Asegúrate de dejar espacio entre ambas patas para evitar cortocircuitos.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">⚠️</span>
+                        <span class="paso-tip-text">Tip: Las filas horizontales del protoboard están conectadas internamente, aprovecha esto para tus conexiones.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="paso-card">
+                <div class="paso-number">3</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar la Resistencia</h3>
+                    <p class="paso-description">
+                        Conecta una pata de la resistencia de 220Ω a la misma fila donde está el ánodo del LED. La otra pata de la resistencia la conectarás a otra fila vacía. La resistencia limita la corriente que pasa por el LED protegiéndolo.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🎯</span>
+                        <span class="paso-tip-text">Tip: Las resistencias no tienen polaridad, puedes conectarlas en cualquier dirección.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="paso-card">
+                <div class="paso-number">4</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Colocar el Interruptor</h3>
+                    <p class="paso-description">
+                        Inserta el interruptor (push button) en el protoboard. Normalmente tiene 4 patas; colócalo de manera que las patas diagonales queden conectadas cuando presiones el botón. Conecta una pata del interruptor a la fila donde termina la resistencia.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🔍</span>
+                        <span class="paso-tip-text">Tip: Prueba el interruptor con un multímetro para identificar qué patas se conectan al presionarlo.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="paso-card">
+                <div class="paso-number">5</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar el Voltaje Positivo</h3>
+                    <p class="paso-description">
+                        Con un cable de conexión, une la otra pata del interruptor al riel positivo (+) del protoboard o directamente al pin de 5V de tu fuente de alimentación (puede ser Arduino). Este será el camino de la corriente eléctrica.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🔴</span>
+                        <span class="paso-tip-text">Tip: Usa cables de color rojo para identificar fácilmente las conexiones positivas.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 6 -->
+            <div class="paso-card">
+                <div class="paso-number">6</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar a Tierra (GND)</h3>
+                    <p class="paso-description">
+                        Con otro cable, conecta el cátodo del LED (pata corta) al riel negativo (-) del protoboard o directamente al pin GND de tu fuente de alimentación. Esto completa el circuito eléctrico permitiendo que la corriente fluya.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">⚫</span>
+                        <span class="paso-tip-text">Tip: Usa cables de color negro para las conexiones a tierra (GND).</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 7 -->
+            <div class="paso-card">
+                <div class="paso-number">7</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Probar el Circuito</h3>
+                    <p class="paso-description">
+                        Conecta la fuente de alimentación y presiona el interruptor. El LED debe encenderse cuando presionas el botón y apagarse cuando lo sueltas. Si no funciona, verifica todas las conexiones y la polaridad del LED.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">✨</span>
+                        <span class="paso-tip-text">Tip: Si el LED no enciende, invierte sus patas. Si aún no funciona, revisa las conexiones del interruptor.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Botón volver -->
         <a href="index.html" class="btn-back">
             ← Volver al inicio
@@ -387,4 +627,3 @@
     </div>
 </body>
 </html>
-
