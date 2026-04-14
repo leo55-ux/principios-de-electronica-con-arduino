@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maqueta - Proyecto Arduino</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c239b3 50%, #ffa8e1 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+ 
+        /* Partículas de fondo */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 2px, transparent 2px);
+            background-size: 40px 40px;
+            animation: moveBackground 15s linear infinite;
+            z-index: 0;
+        }
+ 
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+ 
+        /* Círculos decorativos flotantes */
+        .decorative-circle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+ 
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+            top: -100px;
+            right: -100px;
+            animation: float1 8s ease-in-out infinite;
+        }
+ 
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 168, 225, 0.3), transparent);
+            bottom: -50px;
+            left: -50px;
+            animation: float2 6s ease-in-out infinite;
+        }
+ 
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(194, 57, 179, 0.2), transparent);
+            top: 50%;
+            left: 10%;
+            animation: float3 10s ease-in-out infinite;
+        }
+ 
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 80px); }
+        }
+ 
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, -50px); }
+        }
+ 
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -40px) scale(1.2); }
+        }
+ 
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+ 
+        /* Header con título */
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 240, 245, 0.98) 100%);
+            border-radius: 30px;
+            box-shadow: 0 25px 70px rgba(255, 107, 157, 0.4),
+                        0 0 0 3px rgba(255, 168, 225, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+            animation: fadeInDown 1s ease, headerPulse 3s ease-in-out infinite;
+            border: 3px solid rgba(255, 168, 225, 0.4);
+            overflow: hidden;
+        }
+ 
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+            animation: rotate 10s linear infinite;
+        }
+ 
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+ 
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        @keyframes headerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+ 
+        .header h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+ 
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+ 
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: #ff6b9d;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+ 
+        .header .emoji-decoration {
+            font-size: 3rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+ 
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+ 
+        /* Descripción del proyecto */
+        .proyecto-descripcion {
+            background: linear-gradient(135deg, white, #fff9fc);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2),
+                        0 0 0 2px rgba(255, 168, 225, 0.3);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease;
+        }
+ 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        .proyecto-descripcion h2 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+ 
+        .proyecto-descripcion p {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+ 
+        .funciones-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+ 
+        .funcion-item {
+            background: linear-gradient(135deg, #fff0f6, white);
+            padding: 1.2rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+ 
+        .funcion-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
+        }
+ 
+        .funcion-icon {
+            font-size: 1.8rem;
+            min-width: 40px;
+        }
+ 
+        .funcion-text {
+            color: #555;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+ 
+        /* Lista de materiales */
+        .materiales-box {
+            background: linear-gradient(135deg, white, #fff9fc);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2),
+                        0 0 0 2px rgba(255, 168, 225, 0.3);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease;
+            animation-delay: 0.1s;
+        }
+ 
+        .materiales-title {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+ 
+        .materiales-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+ 
+        .material-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #fff0f6, white);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+ 
+        .material-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
+        }
+ 
+        .material-icon {
+            font-size: 1.5rem;
+        }
+ 
+        .material-name {
+            color: #555;
+            font-weight: 600;
+        }
+ 
+        /* Sección de pasos */
+        .pasos-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+ 
+        .paso-card {
+            background: linear-gradient(135deg, white, #fff9fc);
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2),
+                        0 0 0 2px rgba(255, 168, 225, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: cardAppear 0.6s ease backwards;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+ 
+        .paso-card:nth-child(1) { animation-delay: 0.1s; }
+        .paso-card:nth-child(2) { animation-delay: 0.2s; }
+        .paso-card:nth-child(3) { animation-delay: 0.3s; }
+        .paso-card:nth-child(4) { animation-delay: 0.4s; }
+        .paso-card:nth-child(5) { animation-delay: 0.5s; }
+        .paso-card:nth-child(6) { animation-delay: 0.6s; }
+        .paso-card:nth-child(7) { animation-delay: 0.7s; }
+        .paso-card:nth-child(8) { animation-delay: 0.8s; }
+        .paso-card:nth-child(9) { animation-delay: 0.9s; }
+        .paso-card:nth-child(10) { animation-delay: 1s; }
+ 
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateX(-50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+ 
+        .paso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+ 
+        .paso-card:hover::before {
+            left: 100%;
+        }
+ 
+        .paso-card:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(255, 107, 157, 0.4),
+                        0 0 0 3px rgba(255, 168, 225, 0.5),
+                        0 0 30px rgba(194, 57, 179, 0.3);
+        }
+ 
+        .paso-number {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+            position: relative;
+        }
+ 
+        .paso-number::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            top: 0;
+            left: 0;
+        }
+ 
+        .paso-content {
+            flex: 1;
+        }
+ 
+        .paso-title {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+ 
+        .paso-description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+ 
+        .paso-tip {
+            background: linear-gradient(135deg, #fff9fc, #ffe6f0);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid #ff6b9d;
+            margin-top: 1rem;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+ 
+        .paso-tip-icon {
+            font-size: 1.3rem;
+            margin-top: 0.1rem;
+        }
+ 
+        .paso-tip-text {
+            color: #c239b3;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+ 
+        .codigo-ejemplo {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin-top: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+ 
+        .codigo-ejemplo .comment {
+            color: #6a9955;
+        }
+ 
+        .codigo-ejemplo .keyword {
+            color: #c586c0;
+        }
+ 
+        .codigo-ejemplo .function {
+            color: #dcdcaa;
+        }
+ 
+        .codigo-ejemplo .number {
+            color: #b5cea8;
+        }
+ 
+        /* Botón volver */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #ff6b9d, #c239b3);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            margin: 2rem auto;
+            display: flex;
+            width: fit-content;
+        }
+ 
+        .btn-back:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+        }
+ 
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+ 
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+ 
+            .paso-card {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 2rem;
+            }
+ 
+            .paso-number {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+                font-size: 1.5rem;
+                margin: 0 auto;
+            }
+ 
+            .paso-title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+ 
+            .materiales-list {
+                grid-template-columns: 1fr;
+            }
+ 
+            .funciones-lista {
+                grid-template-columns: 1fr;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+ 
+            .header {
+                padding: 2rem 1.5rem;
+            }
+ 
+            .container {
+                padding: 1rem;
+            }
+ 
+            .paso-card {
+                padding: 1.5rem;
+            }
+ 
+            .materiales-box, .proyecto-descripcion {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Círculos decorativos -->
+    <div class="decorative-circle circle-1"></div>
+    <div class="decorative-circle circle-2"></div>
+    <div class="decorative-circle circle-3"></div>
+ 
+    <div class="container">
+        <!-- Header con título -->
+        <div class="header">
+            <div class="emoji-decoration">🏠</div>
+            <h1>Maqueta</h1>
+            <p class="subtitle">Sistema Inteligente con Arduino</p>
+        </div>
+ 
+        <!-- Descripción del proyecto -->
+        <div class="proyecto-descripcion">
+            <h2>
+                <span>📋</span>
+                Descripción del Proyecto
+            </h2>
+            <p>
+                Este proyecto consiste en una maqueta inteligente que combina múltiples sensores y actuadores para crear un sistema automatizado. La maqueta incluye iluminación automática mediante fotorresistencia y un sistema de apertura de puerta controlado por sensor ultrasónico.
+            </p>
+            <div class="funciones-lista">
+                <div class="funcion-item">
+                    <span class="funcion-icon">💡</span>
+                    <div class="funcion-text">LED que se activa automáticamente cuando detecta oscuridad mediante fotorresistencia</div>
+                </div>
+                <div class="funcion-item">
+                    <span class="funcion-icon">🚪</span>
+                    <div class="funcion-text">Puerta con servomotor que se abre cuando el sensor ultrasónico detecta un objeto cercano</div>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Materiales necesarios -->
+        <div class="materiales-box">
+            <h2 class="materiales-title">
+                <span>🛠️</span>
+                Materiales Necesarios
+            </h2>
+            <div class="materiales-list">
+                <div class="material-item">
+                    <span class="material-icon">🤖</span>
+                    <span class="material-name">1 Arduino UNO</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">📋</span>
+                    <span class="material-name">1 Protoboard</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔴</span>
+                    <span class="material-name">1 LED (cualquier color)</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">⚡</span>
+                    <span class="material-name">1 Resistencia 220Ω</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🌓</span>
+                    <span class="material-name">1 Fotorresistencia (LDR)</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">⚡</span>
+                    <span class="material-name">1 Resistencia 10kΩ</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">📡</span>
+                    <span class="material-name">1 Sensor Ultrasónico HC-SR04</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔄</span>
+                    <span class="material-name">1 Servomotor SG90</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔌</span>
+                    <span class="material-name">Cables de conexión</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🏗️</span>
+                    <span class="material-name">Materiales para maqueta (cartón, madera, etc.)</span>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- Sección de pasos -->
+        <div class="pasos-section">
+            <!-- Paso 1 -->
+            <div class="paso-card">
+                <div class="paso-number">1</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Preparar la Maqueta Base</h3>
+                    <p class="paso-description">
+                        Construye la estructura básica de tu maqueta utilizando cartón, madera o el material de tu preferencia. Diseña un espacio donde colocar el LED (puede ser una habitación) y una puerta que pueda moverse con el servomotor. Deja espacio para el sensor ultrasónico en la entrada.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">💡</span>
+                        <span class="paso-tip-text">Tip: Planifica antes de construir. Haz un boceto de tu maqueta para visualizar dónde irán todos los componentes.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 2 -->
+            <div class="paso-card">
+                <div class="paso-number">2</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar la Fotorresistencia</h3>
+                    <p class="paso-description">
+                        Conecta un extremo de la fotorresistencia a 5V del Arduino. El otro extremo conéctalo al pin analógico A0 y también a través de una resistencia de 10kΩ a GND. Este circuito divisor de voltaje permitirá al Arduino leer los cambios de luz.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🔍</span>
+                        <span class="paso-tip-text">Tip: La fotorresistencia no tiene polaridad, puedes conectarla en cualquier dirección.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 3 -->
+            <div class="paso-card">
+                <div class="paso-number">3</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar el LED con Resistencia</h3>
+                    <p class="paso-description">
+                        Conecta el ánodo del LED (pata larga) al pin digital 13 del Arduino a través de una resistencia de 220Ω. El cátodo (pata corta) conéctalo a GND. Este LED se encenderá automáticamente cuando la fotorresistencia detecte oscuridad.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">⚠️</span>
+                        <span class="paso-tip-text">Tip: Nunca conectes un LED directamente al pin sin resistencia, esto puede dañar tanto el LED como el Arduino.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 4 -->
+            <div class="paso-card">
+                <div class="paso-number">4</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar el Sensor Ultrasónico</h3>
+                    <p class="paso-description">
+                        El sensor HC-SR04 tiene 4 pines: VCC a 5V, GND a GND, TRIG al pin digital 9 y ECHO al pin digital 10 del Arduino. Este sensor emite ondas ultrasónicas y mide el tiempo que tardan en regresar para calcular la distancia a un objeto.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">📏</span>
+                        <span class="paso-tip-text">Tip: El sensor ultrasónico funciona mejor con distancias entre 2cm y 400cm. Colócalo en un lugar sin obstrucciones.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 5 -->
+            <div class="paso-card">
+                <div class="paso-number">5</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar el Servomotor</h3>
+                    <p class="paso-description">
+                        El servomotor tiene 3 cables: café o negro (GND) a GND, rojo (VCC) a 5V, y naranja o amarillo (señal) al pin digital 6 del Arduino. El servo controla la apertura de la puerta mediante rotación controlada de 0° a 180°.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🔋</span>
+                        <span class="paso-tip-text">Tip: Si el servo consume mucha corriente, considera usar una fuente de alimentación externa de 5V conectada al Arduino.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 6 -->
+            <div class="paso-card">
+                <div class="paso-number">6</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Instalar Componentes en la Maqueta</h3>
+                    <p class="paso-description">
+                        Coloca la fotorresistencia y el LED en la parte superior o lateral de la habitación de tu maqueta. Monta el sensor ultrasónico en la entrada de la puerta apuntando hacia afuera. Fija el servomotor de manera que pueda abrir y cerrar la puerta.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🎨</span>
+                        <span class="paso-tip-text">Tip: Usa cinta adhesiva de doble cara o pegamento caliente para fijar los componentes de forma segura.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 7 -->
+            <div class="paso-card">
+                <div class="paso-number">7</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Programar Arduino - Parte 1 (Setup)</h3>
+                    <p class="paso-description">
+                        Abre el IDE de Arduino y comienza tu código. Incluye la librería Servo, define los pines y crea las variables necesarias para almacenar lecturas de sensores. En el setup() configura los pines de entrada y salida.
+                    </p>
+                    <div class="codigo-ejemplo"><span class="comment">// Incluir librería del servo</span>
+#<span class="keyword">include</span> &lt;Servo.h&gt;
+ 
+<span class="comment">// Definir pines</span>
+<span class="keyword">const int</span> pinLED = <span class="number">13</span>;
+<span class="keyword">const int</span> pinLDR = A<span class="number">0</span>;
+<span class="keyword">const int</span> pinTrig = <span class="number">9</span>;
+<span class="keyword">const int</span> pinEcho = <span class="number">10</span>;
+<span class="keyword">const int</span> pinServo = <span class="number">6</span>;
+ 
+<span class="comment">// Crear objeto servo</span>
+Servo puerta;
+ 
+<span class="keyword">void</span> <span class="function">setup</span>() {
+  <span class="function">pinMode</span>(pinLED, OUTPUT);
+  <span class="function">pinMode</span>(pinTrig, OUTPUT);
+  <span class="function">pinMode</span>(pinEcho, INPUT);
+  puerta.<span class="function">attach</span>(pinServo);
+  puerta.<span class="function">write</span>(<span class="number">0</span>); <span class="comment">// Puerta cerrada</span>
+}</div>
+                </div>
+            </div>
+ 
+            <!-- Paso 8 -->
+            <div class="paso-card">
+                <div class="paso-number">8</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Programar Arduino - Parte 2 (Loop)</h3>
+                    <p class="paso-description">
+                        En el loop() lee constantemente el valor de la fotorresistencia para controlar el LED, y la distancia del sensor ultrasónico para controlar el servo. Si hay oscuridad, enciende el LED. Si detecta un objeto cerca, abre la puerta.
+                    </p>
+                    <div class="codigo-ejemplo"><span class="keyword">void</span> <span class="function">loop</span>() {
+  <span class="comment">// Leer fotorresistencia</span>
+  <span class="keyword">int</span> valorLuz = <span class="function">analogRead</span>(pinLDR);
+  
+  <span class="comment">// Si está oscuro, encender LED</span>
+  <span class="keyword">if</span> (valorLuz &lt; <span class="number">500</span>) {
+    <span class="function">digitalWrite</span>(pinLED, HIGH);
+  } <span class="keyword">else</span> {
+    <span class="function">digitalWrite</span>(pinLED, LOW);
+  }
+  
+  <span class="comment">// Medir distancia</span>
+  <span class="keyword">long</span> distancia = <span class="function">medirDistancia</span>();
+  
+  <span class="comment">// Si objeto está cerca, abrir puerta</span>
+  <span class="keyword">if</span> (distancia &lt; <span class="number">20</span>) {
+    puerta.<span class="function">write</span>(<span class="number">90</span>); <span class="comment">// Abierta</span>
+  } <span class="keyword">else</span> {
+    puerta.<span class="function">write</span>(<span class="number">0</span>); <span class="comment">// Cerrada</span>
+  }
+  
+  <span class="function">delay</span>(<span class="number">100</span>);
+}</div>
+                </div>
+            </div>
+ 
+            <!-- Paso 9 -->
+            <div class="paso-card">
+                <div class="paso-number">9</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Programar Arduino - Parte 3 (Función Distancia)</h3>
+                    <p class="paso-description">
+                        Crea una función auxiliar que calcule la distancia usando el sensor ultrasónico. Esta función envía un pulso ultrasónico y mide el tiempo que tarda en regresar el eco, luego calcula la distancia en centímetros.
+                    </p>
+                    <div class="codigo-ejemplo"><span class="keyword">long</span> <span class="function">medirDistancia</span>() {
+  <span class="comment">// Limpiar el trigger</span>
+  <span class="function">digitalWrite</span>(pinTrig, LOW);
+  <span class="function">delayMicroseconds</span>(<span class="number">2</span>);
+  
+  <span class="comment">// Enviar pulso ultrasónico</span>
+  <span class="function">digitalWrite</span>(pinTrig, HIGH);
+  <span class="function">delayMicroseconds</span>(<span class="number">10</span>);
+  <span class="function">digitalWrite</span>(pinTrig, LOW);
+  
+  <span class="comment">// Leer el tiempo del eco</span>
+  <span class="keyword">long</span> duracion = <span class="function">pulseIn</span>(pinEcho, HIGH);
+  
+  <span class="comment">// Calcular distancia en cm</span>
+  <span class="keyword">long</span> distancia = duracion * <span class="number">0.034</span> / <span class="number">2</span>;
+  
+  <span class="keyword">return</span> distancia;
+}</div>
+                </div>
+            </div>
+ 
+            <!-- Paso 10 -->
+            <div class="paso-card">
+                <div class="paso-number">10</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Cargar Código y Probar</h3>
+                    <p class="paso-description">
+                        Conecta tu Arduino a la computadora mediante el cable USB, selecciona el puerto correcto en el IDE y carga el código. Una vez cargado, desconecta el USB y alimenta el Arduino con una batería o adaptador. Prueba tapando la fotorresistencia con tu mano (LED debe encenderse) y acercando tu mano al sensor ultrasónico (puerta debe abrirse).
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">✨</span>
+                        <span class="paso-tip-text">Tip: Ajusta el valor umbral de luz (500) y distancia (20cm) según tus necesidades y condiciones de iluminación.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+<!-- Botón volver -->
+        <a href="index.html" class="btn-back">
+            ← Volver al inicio
+        </a>
+    </div>
+</body>
+</html>
