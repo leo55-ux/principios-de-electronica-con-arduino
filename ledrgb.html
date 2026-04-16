@@ -594,10 +594,6 @@
                     <span class="funcion-icon">💡</span>
                     <div class="funcion-text">LED se prende dependiendo de que boton se aplaste</div>
                 </div>
-                <div class="funcion-item">
-                    <span class="funcion-icon">🚪</span>
-                    <div class="funcion-text">Puerta con servomotor que se abre cuando el sensor ultrasónico detecta un objeto cercano</div>
-                </div>
             </div>
         </div>
  
@@ -621,11 +617,11 @@
                     <span class="material-name">3 resistencias de 220 ohms</span>
                 </div>
                 <div class="material-item">
-                    <span class="material-icon">⚡</span>
+                    <span class="material-icon">🛎️</span>
                     <span class="material-name">3 push botton</span>
                 </div>
                 <div class="material-item">
-                    <span class="material-icon">🌓</span>
+                    <span class="material-icon">🚠</span>
                     <span class="material-name">jumpers macho-macho</span>
                 </div>
             </div>
@@ -639,12 +635,12 @@
                 <div class="paso-content">
                     <h3 class="paso-title">Ver que tipo de led es el tuyo(anion comun y cation comun)</h3>
                     <p class="paso-description">
-                        Pon la patita mas larga en el lado positivo y las otras patitas en el negativo si prende es anion comun y si es
+                        Pon la patita mas larga en el lado positivo y las otras patitas en el negativo si prende es anion comun y si es 
                         al reves es cation comun.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">💡</span>
-                        <span class="paso-tip-text">Tip: Planifica antes de construir. Haz un boceto de tu maqueta para visualizar dónde irán todos los componentes.</span>
+                        <span class="paso-tip-text">Tip: usa una resistencia para que no se te queme el led.</span>
                     </div>
                 </div>
             </div>
@@ -653,13 +649,13 @@
             <div class="paso-card">
                 <div class="paso-number">2</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectar el circuito</h3>
+                    <h3 class="paso-title">Conectar el led</h3>
                     <p class="paso-description">
-                        Conectar el led rgb a .
+                        Conectar el led rgb a la protoboard dejando espacio para as resistencias y lo demas.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">🔍</span>
-                        <span class="paso-tip-text">Tip: La fotorresistencia no tiene polaridad, puedes conectarla en cualquier dirección.</span>
+                        <span class="paso-tip-text">Tip: te e cunta que tipo de led es.</span>
                     </div>
                 </div>
             </div>
@@ -670,7 +666,7 @@
                 <div class="paso-content">
                     <h3 class="paso-title">Conectar el LED con Resistencia</h3>
                     <p class="paso-description">
-                        Conecta el ánodo del LED (pata larga) al pin digital 13 del Arduino a través de una resistencia de 220Ω. El cátodo (pata corta) conéctalo a GND. Este LED se encenderá automáticamente cuando la fotorresistencia detecte oscuridad.
+                        Conecta el ánodo del LED (pata larga) al pin digital 13 del Arduino a través de una resistencia de 220Ω. El cátodo (pata corta) conéctalo a GND. Este LED se encenderá automáticamente cuando la fotorresistencia detecte oscuridad. si no te funciona asi conectalo al reves esto claro dependiendo de tipo de led RGB.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">⚠️</span>
@@ -683,13 +679,14 @@
             <div class="paso-card">
                 <div class="paso-number">4</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectar el Sensor Ultrasónico</h3>
+                    <h3 class="paso-title">Conectar los push boton</h3>
                     <p class="paso-description">
-                        El sensor HC-SR04 tiene 4 pines: VCC a 5V, GND a GND, TRIG al pin digital 9 y ECHO al pin digital 10 del Arduino. Este sensor emite ondas ultrasónicas y mide el tiempo que tardan en regresar para calcular la distancia a un objeto.
+                        Con un jumper conecta a el lado positivo y con otro al negativo en el push boton donde pasara la coriente
+                        que alimentara a al led.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">📏</span>
-                        <span class="paso-tip-text">Tip: El sensor ultrasónico funciona mejor con distancias entre 2cm y 400cm. Colócalo en un lugar sin obstrucciones.</span>
+                        <span class="paso-tip-text">Tip: el push boton tiene terminales que van a un mismo lugar asegurate de no hacerlo asi.</span>
                     </div>
                 </div>
             </div>
@@ -698,138 +695,15 @@
             <div class="paso-card">
                 <div class="paso-number">5</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectar el Servomotor</h3>
+                    <h3 class="paso-title">Conectar la fuente de poder</h3>
                     <p class="paso-description">
-                        El servomotor tiene 3 cables: café o negro (GND) a GND, rojo (VCC) a 5V, y naranja o amarillo (señal) al pin digital 6 del Arduino. El servo controla la apertura de la puerta mediante rotación controlada de 0° a 180°.
+                        Teniendo en cutas que se siguieron los pasos bien ahora toca conectar la fuente que aimentara a circuito
+                        en los push boton respetando la polaridad de lo que previamente habias hecho.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">🔋</span>
-                        <span class="paso-tip-text">Tip: Si el servo consume mucha corriente, considera usar una fuente de alimentación externa de 5V conectada al Arduino.</span>
-                    </div>
-                </div>
-            </div>
- 
-            <!-- Paso 6 -->
-            <div class="paso-card">
-                <div class="paso-number">6</div>
-                <div class="paso-content">
-                    <h3 class="paso-title">Instalar Componentes en la Maqueta</h3>
-                    <p class="paso-description">
-                        Coloca la fotorresistencia y el LED en la parte superior o lateral de la habitación de tu maqueta. Monta el sensor ultrasónico en la entrada de la puerta apuntando hacia afuera. Fija el servomotor de manera que pueda abrir y cerrar la puerta.
-                    </p>
-                    <div class="paso-tip">
-                        <span class="paso-tip-icon">🎨</span>
-                        <span class="paso-tip-text">Tip: Usa cinta adhesiva de doble cara o pegamento caliente para fijar los componentes de forma segura.</span>
-                    </div>
-                </div>
-            </div>
- 
-            <!-- Paso 7 -->
-            <div class="paso-card">
-                <div class="paso-number">7</div>
-                <div class="paso-content">
-                    <h3 class="paso-title">Programar Arduino - Parte 1 (Setup)</h3>
-                    <p class="paso-description">
-                        Abre el IDE de Arduino y comienza tu código. Incluye la librería Servo, define los pines y crea las variables necesarias para almacenar lecturas de sensores. En el setup() configura los pines de entrada y salida.
-                    </p>
-                    <div class="codigo-ejemplo"><span class="comment">// Incluir librería del servo</span>
-#<span class="keyword">include</span> &lt;Servo.h&gt;
- 
-<span class="comment">// Definir pines</span>
-<span class="keyword">const int</span> pinLED = <span class="number">13</span>;
-<span class="keyword">const int</span> pinLDR = A<span class="number">0</span>;
-<span class="keyword">const int</span> pinTrig = <span class="number">9</span>;
-<span class="keyword">const int</span> pinEcho = <span class="number">10</span>;
-<span class="keyword">const int</span> pinServo = <span class="number">6</span>;
- 
-<span class="comment">// Crear objeto servo</span>
-Servo puerta;
- 
-<span class="keyword">void</span> <span class="function">setup</span>() {
-  <span class="function">pinMode</span>(pinLED, OUTPUT);
-  <span class="function">pinMode</span>(pinTrig, OUTPUT);
-  <span class="function">pinMode</span>(pinEcho, INPUT);
-  puerta.<span class="function">attach</span>(pinServo);
-  puerta.<span class="function">write</span>(<span class="number">0</span>); <span class="comment">// Puerta cerrada</span>
-}</div>
-                </div>
-            </div>
- 
-            <!-- Paso 8 -->
-            <div class="paso-card">
-                <div class="paso-number">8</div>
-                <div class="paso-content">
-                    <h3 class="paso-title">Programar Arduino - Parte 2 (Loop)</h3>
-                    <p class="paso-description">
-                        En el loop() lee constantemente el valor de la fotorresistencia para controlar el LED, y la distancia del sensor ultrasónico para controlar el servo. Si hay oscuridad, enciende el LED. Si detecta un objeto cerca, abre la puerta.
-                    </p>
-                    <div class="codigo-ejemplo"><span class="keyword">void</span> <span class="function">loop</span>() {
-  <span class="comment">// Leer fotorresistencia</span>
-  <span class="keyword">int</span> valorLuz = <span class="function">analogRead</span>(pinLDR);
- 
-  <span class="comment">// Si está oscuro, encender LED</span>
-  <span class="keyword">if</span> (valorLuz &lt; <span class="number">500</span>) {
-    <span class="function">digitalWrite</span>(pinLED, HIGH);
-  } <span class="keyword">else</span> {
-    <span class="function">digitalWrite</span>(pinLED, LOW);
-  }
- 
-  <span class="comment">// Medir distancia</span>
-  <span class="keyword">long</span> distancia = <span class="function">medirDistancia</span>();
- 
-  <span class="comment">// Si objeto está cerca, abrir puerta</span>
-  <span class="keyword">if</span> (distancia &lt; <span class="number">20</span>) {
-    puerta.<span class="function">write</span>(<span class="number">90</span>); <span class="comment">// Abierta</span>
-  } <span class="keyword">else</span> {
-    puerta.<span class="function">write</span>(<span class="number">0</span>); <span class="comment">// Cerrada</span>
-  }
- 
-  <span class="function">delay</span>(<span class="number">100</span>);
-}</div>
-                </div>
-            </div>
- 
-            <!-- Paso 9 -->
-            <div class="paso-card">
-                <div class="paso-number">9</div>
-                <div class="paso-content">
-                    <h3 class="paso-title">Programar Arduino - Parte 3 (Función Distancia)</h3>
-                    <p class="paso-description">
-                        Crea una función auxiliar que calcule la distancia usando el sensor ultrasónico. Esta función envía un pulso ultrasónico y mide el tiempo que tarda en regresar el eco, luego calcula la distancia en centímetros.
-                    </p>
-                    <div class="codigo-ejemplo"><span class="keyword">long</span> <span class="function">medirDistancia</span>() {
-  <span class="comment">// Limpiar el trigger</span>
-  <span class="function">digitalWrite</span>(pinTrig, LOW);
-  <span class="function">delayMicroseconds</span>(<span class="number">2</span>);
- 
-  <span class="comment">// Enviar pulso ultrasónico</span>
-  <span class="function">digitalWrite</span>(pinTrig, HIGH);
-  <span class="function">delayMicroseconds</span>(<span class="number">10</span>);
-  <span class="function">digitalWrite</span>(pinTrig, LOW);
- 
-  <span class="comment">// Leer el tiempo del eco</span>
-  <span class="keyword">long</span> duracion = <span class="function">pulseIn</span>(pinEcho, HIGH);
- 
-  <span class="comment">// Calcular distancia en cm</span>
-  <span class="keyword">long</span> distancia = duracion * <span class="number">0.034</span> / <span class="number">2</span>;
- 
-  <span class="keyword">return</span> distancia;
-}</div>
-                </div>
-            </div>
- 
-            <!-- Paso 10 -->
-            <div class="paso-card">
-                <div class="paso-number">10</div>
-                <div class="paso-content">
-                    <h3 class="paso-title">Cargar Código y Probar</h3>
-                    <p class="paso-description">
-                        Conecta tu Arduino a la computadora mediante el cable USB, selecciona el puerto correcto en el IDE y carga el código. Una vez cargado, desconecta el USB y alimenta el Arduino con una batería o adaptador. Prueba tapando la fotorresistencia con tu mano (LED debe encenderse) y acercando tu mano al sensor ultrasónico (puerta debe abrirse).
-                    </p>
-                    <div class="paso-tip">
-                        <span class="paso-tip-icon">✨</span>
-                        <span class="paso-tip-text">Tip: Ajusta el valor umbral de luz (500) y distancia (20cm) según tus necesidades y condiciones de iluminación.</span>
-                    </div>
+                        <span class="paso-tip-text">Tip: es mejor si la fuente de poder lo pones en la protoboard en la parte
+                        donde esta es signo "+""-".</span>
                 </div>
             </div>
         </div>
