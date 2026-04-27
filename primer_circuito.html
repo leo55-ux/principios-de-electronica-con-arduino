@@ -518,13 +518,14 @@
                 <div class="paso-number">2</div>
                 <div class="paso-content">
                     <div class="paso-text">
-                        <h3 class="paso-title">Colocar el LED en el Protoboard</h3>
+                        <h3 class="paso-title">Colocar la resistencia</h3>
                         <p class="paso-description">
-                            Inserta el LED en la protoboard. Coloca el ánodo (pata larga) en una fila y el cátodo (pata corta) en otra fila diferente. Asegúrate de dejar espacio entre ambas patas para evitar cortocircuitos.
+                            La resistencia de 220 ohmios se pone del lado positivo del led en caso de que sea directo se coloca en cada led
+                            mientras que si es en serie solo se conecta una, en el dado positivo ya que esta cubre todo el circuito.
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">⚠️</span>
-                            <span class="paso-tip-text">Tip: Las filas horizontales del protoboard están conectadas internamente, aprovecha esto para tus conexiones.</span>
+                            <span class="paso-tip-text">Tip:  Las resistencias no tienen polaridad, puedes conectarlas en cualquier dirección.</span>
                         </div>
                     </div>
                     <img src="paso2a.jpeg" alt="Colocar el LED en el Protoboard" class="paso-img">
@@ -536,13 +537,13 @@
                 <div class="paso-number">3</div>
                 <div class="paso-content">
                     <div class="paso-text">
-                        <h3 class="paso-title">Conectar la Resistencia</h3>
+                        <h3 class="paso-title">Conectar los cables</h3>
                         <p class="paso-description">
-                            Conecta una pata de la resistencia de 220Ω a la misma fila donde está el ánodo del LED. La otra pata de la resistencia la conectarás a otra fila vacía. La resistencia limita la corriente que pasa por el LED protegiéndolo.
+                            A los cables nos referimos en donde van a pasar corriente entonces se conectan eso si respetando la polaridad del led.
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">🎯</span>
-                            <span class="paso-tip-text">Tip: Las resistencias no tienen polaridad, puedes conectarlas en cualquier dirección.</span>
+                            <span class="paso-tip-text">Tip: si puedes utiliza la parte dela protoboard en donde tiene el más y el menos.</span>
                         </div>
                     </div>
                     <img src="paso3a.jpeg" alt="Conectar la Resistencia" class="paso-img">
@@ -554,13 +555,14 @@
                 <div class="paso-number">4</div>
                 <div class="paso-content">
                     <div class="paso-text">
-                        <h3 class="paso-title">Colocar el Interruptor</h3>
+                        <h3 class="paso-title">Colocar la fuente de energia</h3>
                         <p class="paso-description">
-                            Inserta el interruptor (push button) en el protoboard. Normalmente tiene 4 patas; colócalo de manera que las patas diagonales queden conectadas cuando presiones el botón. Conecta una pata del interruptor a la fila donde termina la resistencia.
+                            Inserta los jumpers con sus correspondientes polaridad a una fuente de energia(pila,arduino,etc).
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">🔍</span>
-                            <span class="paso-tip-text">Tip: Prueba el interruptor con un multímetro para identificar qué patas se conectan al presionarlo.</span>
+                            <span class="paso-tip-text">Tip:si no funciona alguno de los circuitos checa los leds por que puede que uno este quemado
+                                y en el caso de de en serie puede que no prenda ningun led.</span>
                         </div>
                     </div>
                     <img src="paso4a.jpeg" alt="Colocar el Interruptor" class="paso-img">
