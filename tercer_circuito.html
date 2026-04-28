@@ -454,7 +454,7 @@
             <video width="640" height="360" controls>
     <source src="fun.mp4" type="video/mp4">
         </video>
-            <img src="1circuito_tinkercad.png" alt="Circuito Tinkercad" width="500" height="400">
+            <img src="3_circuito_tinkercad.png" alt="Circuito Tinkercad" width="500" height="400">
         </div>
 
         <!-- Materiales -->
@@ -474,7 +474,7 @@
                 </div>
                 <div class="material-item">
                     <span class="material-icon">🔘</span>
-                    <span class="material-name">1 Interruptor (Push Button)</span>
+                    <span class="material-name">poteciomentro de 10 kw</span>
                 </div>
                 <div class="material-item">
                     <span class="material-icon">📋</span>
@@ -501,9 +501,7 @@
                     <div class="paso-text">
                         <h3 class="paso-title">conecta los leds</h3>
                         <p class="paso-description">
-                            En serie: se conecta un led con el lado positivo y el otro led con la parte negativa.
-                            En paralelo: se conectan de manera separada, en este caso no se uso mas jumpers porque se conecto en
-                            toda la parte del lado negativo de los leds a la protoboard.
+                            inserta el led en alguna parte de la protoboard menos donde esta el mas y menos.
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">💡</span>
@@ -520,13 +518,13 @@
                 <div class="paso-number">2</div>
                 <div class="paso-content">
                     <div class="paso-text">
-                        <h3 class="paso-title">Colocar el LED en el Protoboard</h3>
+                        <h3 class="paso-title">Colocar la resistencia</h3>
                         <p class="paso-description">
-                            Inserta el LED en la protoboard. Coloca el ánodo (pata larga) en una fila y el cátodo (pata corta) en otra fila diferente. Asegúrate de dejar espacio entre ambas patas para evitar cortocircuitos.
+                            Conecta una pata de la resistencia de 220Ω a la misma fila donde está el ántodo del LED.
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">⚠️</span>
-                            <span class="paso-tip-text">Tip: Las filas horizontales del protoboard están conectadas internamente, aprovecha esto para tus conexiones.</span>
+                            <span class="paso-tip-text">Tip:  Las resistencias no tienen polaridad, puedes conectarlas en cualquier dirección.</span>
                         </div>
                     </div>
                     <img src="paso2a.jpeg" alt="Colocar el LED en el Protoboard" class="paso-img">
@@ -538,13 +536,13 @@
                 <div class="paso-number">3</div>
                 <div class="paso-content">
                     <div class="paso-text">
-                        <h3 class="paso-title">Conectar la Resistencia</h3>
+                        <h3 class="paso-title">Conectar el poteciometro</h3>
                         <p class="paso-description">
-                            Conecta una pata de la resistencia de 220Ω a la misma fila donde está el ánodo del LED. La otra pata de la resistencia la conectarás a otra fila vacía. La resistencia limita la corriente que pasa por el LED protegiéndolo.
+                            conecta en donde esta la resitencia en la patita donde hace un cambio de voltaje o conocido como señal del potenciometro y la patita de GND en el lado negativo del led.
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">🎯</span>
-                            <span class="paso-tip-text">Tip: Las resistencias no tienen polaridad, puedes conectarlas en cualquier dirección.</span>
+                            <span class="paso-tip-text">Tip:siempre checa como es tu potenciometro qeuu a veces lo traen invertido las patitas.</span>
                         </div>
                     </div>
                     <img src="paso3a.jpeg" alt="Conectar la Resistencia" class="paso-img">
@@ -556,13 +554,13 @@
                 <div class="paso-number">4</div>
                 <div class="paso-content">
                     <div class="paso-text">
-                        <h3 class="paso-title">Colocar el Interruptor</h3>
+                        <h3 class="paso-title">Colocar los jumpers</h3>
                         <p class="paso-description">
-                            Inserta el interruptor (push button) en el protoboard. Normalmente tiene 4 patas; colócalo de manera que las patas diagonales queden conectadas cuando presiones el botón. Conecta una pata del interruptor a la fila donde termina la resistencia.
+                            El lado donde recibe voltaje el potenciometro, va conectado a una bateria o una fuente de poder y el lado negativo de la pila al cátodo del led.
                         </p>
                         <div class="paso-tip">
                             <span class="paso-tip-icon">🔍</span>
-                            <span class="paso-tip-text">Tip: Prueba el interruptor con un multímetro para identificar qué patas se conectan al presionarlo.</span>
+                            <span class="paso-tip-text">Tip: checa el led y si esta bien conectado todo.</span>
                         </div>
                     </div>
                     <img src="paso4a.jpeg" alt="Colocar el Interruptor" class="paso-img">
