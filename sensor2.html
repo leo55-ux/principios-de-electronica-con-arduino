@@ -575,8 +575,8 @@
         <!-- Header con título -->
         <div class="header">
             <div class="emoji-decoration">🏠</div>
-            <h1>Servo Motor</h1>
-            <p class="subtitle">Uso del Servo Motor</p>
+            <h1>Led RGB</h1>
+            <p class="subtitle">uso del led RGB</p>
         </div>
  
         <!-- Descripción del proyecto -->
@@ -586,13 +586,14 @@
                 Descripción del Proyecto
             </h2>
             <p>
-                En la practica de hoy se realizara el movimiento de un Servo Motor
+                En la practica de hoy se realizara que un led RGB prenda distintos colores con cada uno de sus patas
+                cada color estara ligado a un boton y al presionarse cada uno alumbrar el color que se le dio.
             </p>
             <div class="funciones-lista">
                 <div class="funcion-item">
                     <span class="funcion-icon">💡</span>
-                    <div class="funcion-text">El Servo Motor tiene hasta 180 grados de movilidad.</div>
-                     <img src="servo.PNG" alt="logo" width="500" height="500">
+                    <div class="funcion-text">LED se prende dependiendo de que boton se aplaste</div>
+                     <img src="6circuito_tinkercad.png" alt="logo" width="500" height="500">
                 </div>
             </div>
         </div>
@@ -606,11 +607,19 @@
             <div class="materiales-list">
                 <div class="material-item">
                     <span class="material-icon">🤖</span>
-                    <span class="material-name">Servo Motor</span>
+                    <span class="material-name">LED RGB</span>
                 </div>
                 <div class="material-item">
                     <span class="material-icon">📋</span>
-                    <span class="material-name">1 Placa Arduino</span>
+                    <span class="material-name">1 Protoboard</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🔴</span>
+                    <span class="material-name">3 resistencias de 1kiloohmios</span>
+                </div>
+                <div class="material-item">
+                    <span class="material-icon">🛎️</span>
+                    <span class="material-name">3 potenciometros</span>
                 </div>
                 <div class="material-item">
                     <span class="material-icon">🚠</span>
@@ -625,13 +634,12 @@
             <div class="paso-card">
                 <div class="paso-number">1</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectas los jumpers. Los llevas del servo a la placa.</h3>
+                    <h3 class="paso-title">Inserta el sensor en la protoboard</h3>
                     <p class="paso-description">
-                        Conecta el VCC al lado positivo de la protoboard. Conecta TRIG y ECHO a pines digitales de la placa Arduino. Y por ultimo, conecta GND a la parte negativa de la protoboard
-                    <div class="paso-tip">
-                    <span class="paso-tip-icon">🔍</span>
-                    <span class="paso-tip-text">Tip: Siempre conecta el Servo a un pin analogico. Y normalmente, los cables oscuros (cafe, en este caso) suelen ser siempre GND.</span>
                     </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">💡</span>
+                        <span class="paso-tip-text"></span>
                     </div>
                 </div>
             </div>
@@ -640,10 +648,59 @@
             <div class="paso-card">
                 <div class="paso-number">2</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Añades el codigo a la placa para lograr que funcione, y listo.</h3>
+                    <h3 class="paso-title">Coloca los tres leds en la protoboard de igual forma, pero algo alejados del sensor.</h3>
+                    <p class="paso-description">
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon"></span>
+                        <span class="paso-tip-text"></span>
                     </div>
                 </div>
             </div>
+ 
+            <!-- Paso 3 -->
+            <div class="paso-card">
+                <div class="paso-number">3</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Coloca las resistencias. Llevalas del cátodo del led al lado negativo de la protoboard.</h3>
+                    <p class="paso-description">
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">⚠️</span>
+                        <span class="paso-tip-text">Tip: El Cátodo es la patita más corta del led.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 4 -->
+            <div class="paso-card">
+                <div class="paso-number">4</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conecta los jumpers del sensor ultrasonico.</h3>
+                    <p class="paso-description">
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">📏</span>
+                        <span class="paso-tip-text">TTip: VCC siginifica 5V. Por lo que siempre ira conectado ahí, o a la parte positiva de la protoboard.</span>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Paso 5 -->
+            <div class="paso-card">
+                <div class="paso-number">5</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conecta los jumpers de los leds y las resistencias a la placa Arduino.</h3>
+                    <p class="paso-description">
+                        Deberás conectarlos junto a las resistencias, para despues llevarlos a pines digitales de la pplaca Arduino.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">🔋</span>
+                        <span class="paso-tip-text">
+                        </span>
+                </div>
+            </div>
+        </div>
  
 <!-- Botón volver -->
         <a href="index.html" class="btn-back">
