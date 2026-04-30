@@ -10,8 +10,46 @@ body{
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
   background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
   min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
 }
-.container{max-width:1100px;margin:auto;padding:2rem;}
+
+/* ── SERVO DE FONDO SALUDANDO ── */
+.servo-bg{
+  position:fixed;
+  right:-30px;
+  bottom:0;
+  width:220px;
+  opacity:0.18;
+  pointer-events:none;
+  z-index:0;
+  transform-origin:bottom center;
+  animation:greeting 2.2s ease-in-out infinite;
+}
+@keyframes greeting{
+  0%,100%{transform:rotate(-15deg);}
+  50%{transform:rotate(15deg);}
+}
+
+/* ── SERVOS FLOTANTES ── */
+.floaters{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+.floater{
+  position:absolute;
+  opacity:0.22;
+  animation:float linear infinite;
+}
+@keyframes float{
+  0%  {transform:translateY(110vh) rotate(0deg);}
+  100%{transform:translateY(-20vh) rotate(360deg);}
+}
+
+.container{max-width:1100px;margin:auto;padding:2rem;position:relative;z-index:1;}
 .header{
   text-align:center;
   background:white;
@@ -88,6 +126,35 @@ iframe{
 </style>
 </head>
 <body>
+
+<!-- SERVO BG SALUDANDO -->
+<svg class="servo-bg" viewBox="0 0 120 260" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="80" width="80" height="100" rx="12" fill="#c239b3"/>
+  <rect x="30" y="90" width="60" height="40" rx="6" fill="#9b1a9b"/>
+  <circle cx="32" cy="100" r="5" fill="#ff9ad5"/>
+  <circle cx="88" cy="100" r="5" fill="#ff9ad5"/>
+  <circle cx="32" cy="168" r="5" fill="#ff9ad5"/>
+  <circle cx="88" cy="168" r="5" fill="#ff9ad5"/>
+  <circle cx="60" cy="80" r="18" fill="#7a0d7a"/>
+  <circle cx="60" cy="80" r="8" fill="#c239b3"/>
+  <g style="transform-origin:60px 80px;animation:arm 2.2s ease-in-out infinite;">
+    <rect x="56" y="20" width="12" height="62" rx="6" fill="#ff6bcf"/>
+    <circle cx="62" cy="20" r="8" fill="#ff9ad5"/>
+  </g>
+  <rect x="38" y="178" width="8" height="40" rx="4" fill="#e00"/>
+  <rect x="54" y="178" width="8" height="40" rx="4" fill="#c239b3"/>
+  <rect x="70" y="178" width="8" height="40" rx="4" fill="#333"/>
+  <style>
+    @keyframes arm{
+      0%,100%{transform:rotate(-50deg);}
+      50%{transform:rotate(40deg);}
+    }
+  </style>
+</svg>
+
+<!-- SERVOS FLOTANTES -->
+<div class="floaters" id="floaters"></div>
+
 <div class="container">
 
   <div class="header">
@@ -179,18 +246,12 @@ void loop() {
   <!-- FOTO DEL CÓDIGO -->
   <div class="box">
     <h2>📷 Foto del Código</h2>
-    <!--
-      IMPORTANTE: Renombra tu imagen a exactamente: codigo3.png
-      (sin tilde, sin espacios) y colócala en la misma carpeta que este HTML.
-      Nombres que funcionan: codigo3.png  |  codigo3.jpg  |  codigo3.jpeg
-    -->
     <img
       id="foto-codigo"
       src="codigo3.png"
       alt="Foto del código Arduino - Servo Motor"
       style="width:100%; border-radius:15px; margin-top:15px; display:block;"
       onerror="
-        /* Intentar variantes del nombre por si la extensión o nombre difiere */
         const intentos = ['codigo3.jpg','codigo3.jpeg','código3.png','código3.jpg','Codigo3.png','CODIGO3.PNG'];
         const img = document.getElementById('foto-codigo');
         const fallback = document.getElementById('img-fallback');
@@ -212,5 +273,42 @@ void loop() {
   </div>
 
 </div>
+
+<script>
+const container = document.getElementById('floaters');
+
+const servoSVG = (size, hue) => `
+<svg width="${size}" height="${size*2.2}" viewBox="0 0 120 260" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="80" width="80" height="100" rx="12" fill="${hue}"/>
+  <rect x="30" y="90" width="60" height="40" rx="6" fill="#7a0d7a"/>
+  <circle cx="32" cy="100" r="5" fill="#ff9ad5"/>
+  <circle cx="88" cy="100" r="5" fill="#ff9ad5"/>
+  <circle cx="32" cy="168" r="5" fill="#ff9ad5"/>
+  <circle cx="88" cy="168" r="5" fill="#ff9ad5"/>
+  <circle cx="60" cy="80" r="18" fill="#5a0a5a"/>
+  <circle cx="60" cy="80" r="8" fill="${hue}"/>
+  <rect x="56" y="28" width="12" height="54" rx="6" fill="#ff6bcf"/>
+  <circle cx="62" cy="28" r="8" fill="#ffb3e6"/>
+  <rect x="38" y="178" width="8" height="35" rx="4" fill="#e00"/>
+  <rect x="54" y="178" width="8" height="35" rx="4" fill="${hue}"/>
+  <rect x="70" y="178" width="8" height="35" rx="4" fill="#333"/>
+</svg>`;
+
+const colors = ['#c239b3','#9b1a9b','#e060c0','#7a0d7a','#d44bc0'];
+
+for(let i = 0; i < 8; i++){
+  const div = document.createElement('div');
+  div.className = 'floater';
+  const size  = 30 + Math.random() * 50;
+  const left  = Math.random() * 95;
+  // duración entre 22 y 38 segundos → flotan muy despacio
+  const dur   = 22 + Math.random() * 16;
+  const delay = -Math.random() * dur;
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  div.style.cssText = `left:${left}%;width:${size}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
+  div.innerHTML = servoSVG(size, color);
+  container.appendChild(div);
+}
+</script>
 </body>
 </html>
