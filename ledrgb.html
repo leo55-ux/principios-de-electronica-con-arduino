@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maqueta - Proyecto Arduino</title>
+    <title>Led RGB - Proyecto Arduino</title>
     <style>
         * {
             margin: 0;
@@ -591,9 +591,8 @@
             </p>
             <div class="funciones-lista">
                 <div class="funcion-item">
-                    <span class="funcion-icon">💡</span>
-                    <div class="funcion-text">LED se prende dependiendo de que boton se aplaste</div>
                      <img src="6circuito_tinkercad.png" alt="logo" width="500" height="500">
+                    <video width="640" height="360" controls><source src="funcionamiento_card8.mp4" type="video/mp4">
                 </div>
             </div>
         </div>
@@ -643,7 +642,7 @@
                         <span class="paso-tip-icon">💡</span>
                         <span class="paso-tip-text">Tip: usa una resistencia para que no se te queme el led.</span>
                     </div>
-                </div>
+                <div/>
             </div>
  
             <!-- Paso 2 -->
@@ -658,6 +657,8 @@
                         <span class="paso-tip-icon">🔍</span>
                         <span class="paso-tip-text">Tip: te e cunta que tipo de led es.</span>
                     </div>
+                     </div>
+                <img src="pasos_card8/1p_card8.jpeg" alt="paso 1">
                 </div>
             </div>
  
@@ -665,14 +666,16 @@
             <div class="paso-card">
                 <div class="paso-number">3</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectar el LED con Resistencia</h3>
+                    <h3 class="paso-title">Push boton</h3>
                     <p class="paso-description">
-                        Conecta el ánodo del LED (pata larga) al pin digital 13 del Arduino a través de una resistencia de 220Ω. El cátodo (pata corta) conéctalo a GND. Este LED se encenderá automáticamente cuando la fotorresistencia detecte oscuridad. si no te funciona asi conectalo al reves esto claro dependiendo de tipo de led RGB.
+                        Conecta los push boton en la protoboard.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">⚠️</span>
-                        <span class="paso-tip-text">Tip: Nunca conectes un LED directamente al pin sin resistencia, esto puede dañar tanto el LED como el Arduino.</span>
+                        <span class="paso-tip-text">Tip: Nunca conectes un LED directamente al pin sin resistencia, esto puede dañar tanto el LED como el Arduino</span>
                     </div>
+                     </div>
+                <img src="pasos_card8/2p_card8.jpeg" alt="paso 2">
                 </div>
             </div>
  
@@ -682,22 +685,42 @@
                 <div class="paso-content">
                     <h3 class="paso-title">Conectar los push boton</h3>
                     <p class="paso-description">
-                        Con un jumper conecta a el lado positivo y con otro al negativo en el push boton donde pasara la coriente
+                        Con un jumper conecta al positvo en el push boton donde pasara la coriente
                         que alimentara a al led.
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">📏</span>
                         <span class="paso-tip-text">Tip: el push boton tiene terminales que van a un mismo lugar asegurate de no hacerlo asi.</span>
                     </div>
+                    </div>
+                <img src="pasos_card8/3p_card8.jpeg" alt="paso 3">
                 </div>
             </div>
- 
-            <!-- Paso 5 -->
+        
+         <!-- Paso 5 -->
             <div class="paso-card">
                 <div class="paso-number">5</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectar la fuente de poder</h3>
+                    <h3 class="paso-title">Conectar las resistencias</h3>
                     <p class="paso-description">
+                        conecta las resistencias en una de las terminalesz de arriba.
+                    </p>
+                    <div class="paso-tip">
+                        <span class="paso-tip-icon">📏</span>
+                        <span class="paso-tip-text">Tip: el push boton tiene terminales que van a un mismo lugar asegurate de no hacerlo asi.</span>
+                    </div>
+                    </div>
+                <img src="pasos_card8/4p_card8.jpeg" alt="paso 4">
+                </div>
+            </div>
+    
+            <!-- Paso 6-->
+            <div class="paso-card">
+                <div class="paso-number">5</div>
+                <div class="paso-content">
+                    <h3 class="paso-title">Conectar el led y fuente de poder</h3>
+                    <p class="paso-description">
+                        Conectar de la resistencia a las terminales libres del led RGB.
                         Teniendo en cutas que se siguieron los pasos bien ahora toca conectar la fuente que aimentara a circuito
                         en los push boton respetando la polaridad de lo que previamente habias hecho.
                     </p>
@@ -706,6 +729,8 @@
                         <span class="paso-tip-text">Tip: es mejor si la fuente de poder lo pones en la protoboard en la parte
                         donde esta es signo "+""-".</span>
                 </div>
+                     </div>
+                <img src="pasos_card8/5p_card8.jpeg" alt="paso 5">
             </div>
         </div>
  
