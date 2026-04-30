@@ -527,7 +527,7 @@
                             <span class="paso-tip-text">Tip:  Las resistencias no tienen polaridad, puedes conectarlas en cualquier dirección.</span>
                         </div>
                     </div>
-                    <img src="pasos_card6/resistir.jpeg" alt="Colocar el LED en el Protoboard" class="paso-img">
+                    <img src="pasos_card6/resisitir.jpeg" alt="Colocar el LED en el Protoboard" class="paso-img">
                 </div>
             </div>
 
@@ -538,8 +538,13 @@
                     <div class="paso-text">
                         <h3 class="paso-title">programar el arduino</h3>
                         <p class="paso-description">
-                            conecta en donde esta la resitencia en la patita donde hace un cambio de voltaje o conocido como señal del potenciometro y la patita de GND en el lado negativo del led.
+                           pinmode → se usa para configurar el pin si quieres que reciba o envie señal
+                            se uso un ciclo for para optimizar el codigo
+                            digitalWrite→ para decir si es alto(HIGH) o bajo(LOW) voltaje
+                            delay→ sirve para decir cuanto tiempo quieres que se quede asi y sigua con lo demás.
                         </p>
+                        </div>
+                    </div>
                     <img src="pasos_card6/codigo.png" alt="Conectar la Resistencia" class="paso-img">
                 </div>
             </div>
@@ -580,7 +585,6 @@
                     <img src="pasos_card6/fuente.jpeg" alt="Colocar el Interruptor" class="paso-img">
                 </div>
             </div>
-
         </div>
 
         <!-- Botón volver -->
