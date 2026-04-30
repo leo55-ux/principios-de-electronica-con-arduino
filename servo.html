@@ -3,141 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maqueta - Proyecto Arduino</title>
-
+<title>Servo Motor - Proyecto Arduino</title>
 <style>
-/* (TODO TU CSS ORIGINAL SIN CAMBIOS) */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
-min-height:100vh;
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
+  min-height:100vh;
 }
-.container{max-width:1200px;margin:0 auto;padding:2rem;}
-.header{text-align:center;padding:3rem;background:white;border-radius:20px;margin-bottom:2rem;}
-.proyecto-descripcion,.materiales-box,.paso-card{
-background:white;
-border-radius:20px;
-padding:2rem;
-margin-bottom:2rem;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+.container{max-width:1100px;margin:auto;padding:2rem;}
+.header{
+  text-align:center;
+  background:white;
+  padding:3rem;
+  border-radius:20px;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
-.paso-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;}
+.box{
+  background:white;
+  padding:2rem;
+  border-radius:20px;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+.paso-card{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1rem;
+  background:linear-gradient(135deg,#ff9ad5,#ffc3e6);
+  border-radius:20px;
+  padding:2rem;
+  margin-bottom:1.5rem;
+  box-shadow:0 10px 25px rgba(194,57,179,0.3);
+  transition:0.3s;
+}
+.paso-card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 15px 35px rgba(194,57,179,0.5);
+}
 .paso-number{
-width:60px;height:60px;
-background:#c239b3;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:10px;
-font-weight:bold;
+  width:60px;
+  height:60px;
+  background:#c239b3;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:15px;
+  font-weight:bold;
+  font-size:1.5rem;
 }
-.codigo-ejemplo{
-background:#2d2d2d;
-color:#fff;
-padding:1rem;
-border-radius:10px;
-font-family:monospace;
-overflow:auto;
-}
-.video-box video{
-width:100%;
-border-radius:15px;
+video{
+  width:100%;
+  border-radius:15px;
+  margin-top:10px;
 }
 iframe{
-width:100%;
-height:400px;
-border-radius:15px;
+  width:100%;
+  height:400px;
+  border-radius:15px;
+  border:none;
+}
+.code{
+  background:#2d2d2d;
+  color:#fff;
+  padding:20px;
+  border-radius:10px;
+  margin-top:15px;
+  font-family:monospace;
+  overflow:auto;
+  white-space:pre;
+}
+.img-fallback{
+  display:none;
+  background:#f0f0f0;
+  border:2px dashed #c239b3;
+  border-radius:15px;
+  padding:2rem;
+  text-align:center;
+  color:#888;
+  margin-top:15px;
 }
 </style>
-
 </head>
-
 <body>
-
 <div class="container">
 
-<div class="header">
-<h1>Servo Motor</h1>
-<p>Uso del Servo Motor</p>
-</div>
+  <div class="header">
+    <h1>Servo Motor</h1>
+    <p>Uso del Servo Motor</p>
+  </div>
 
-<div class="proyecto-descripcion">
-<h2>📋 Descripción</h2>
-<p>En la practica de hoy se realizara el movimiento de un Servo Motor</p>
-</div>
+  <div class="box">
+    <h2>📋 Descripción</h2>
+    <p>En la práctica de hoy se realizará el movimiento de un Servo Motor.</p>
+  </div>
 
-<!-- 🎬 VIDEO PROPIO -->
-<div class="proyecto-descripcion video-box">
-<h2>🎬 Video del Proyecto (tutorial)</h2>
+  <div class="box">
+    <h2>🛠️ Materiales</h2>
+    <ul>
+      <li>Servo Motor</li>
+      <li>Arduino</li>
+      <li>Jumpers</li>
+    </ul>
+  </div>
 
-<video controls>
-<source src="mivideo.mp4" type="video/mp4">
-Tu navegador no soporta video.
-</video>
+  <!-- PASOS -->
+  <div class="paso-card">
+    <div class="paso-number">1</div>
+    <div>
+      <h3>Conexión</h3>
+      <p>
+        Señal → pin digital 9<br>
+        VCC → 5V<br>
+        GND → GND
+      </p>
+    </div>
+  </div>
 
-<p>para mejor explicacion video de youtube en el enlace</b> de abajo.</p>
-</div>
-
-
-<!-- 🎬 VIDEO PROPIO -->
-<div class="proyect video-box">
-<h2>🎬 Video del Proyecto (tutorial2)</h2>
-
-<video controls>
-<source src="mivideo2.mp4" type="video/mp4">
-Tu navegador no soporta video.
-</video>
-
-<p>para mejor explicacion video de youtube en el enlace</b> de abajo.</p>
-</div>  
-  
-<!-- 🔗 VIDEO YOUTUBE -->
-<div class="proyecto-descripcion">
-<h2>🔗 Video de Referencia (YouTube)</h2>
-
-<iframe src="https://youtu.be/X-xXYQfeaMo?si=RbPE8JhF-ZHMWNYv/embed/TU_ID_VIDEO"></iframe>
-
-<p>
-<a href="https://youtu.be/X-xXYQfeaMo?si=RbPE8JhF-ZHMWNYv/watch?v=TU_ID_VIDEO" target="_blank">
-Ver en YouTube
-</a>
-</p>
-</div>
-
-<!-- 🛠️ MATERIALES -->
-<div class="materiales-box">
-<h2>🛠️ Materiales</h2>
-<ul>
-<li>Servo Motor</li>
-<li>Arduino</li>
-<li>Jumpers</li>
-</ul>
-</div>
-
-<!-- PASOS -->
-<div class="paso-card">
-<div class="paso-number">1</div>
-<div>
-<h3>Conexión</h3>
-<p>
-Señal → pin digital 9<br>
-VCC → 5V<br>
-GND → GND
-</p>
-</div>
-</div>
-
-<!-- 💻 CODIGO -->
-<div class="paso-card">
-<div class="paso-number">2</div>
-<div>
-<h3>Código del Circuito</h3>
-
-<div class="codigo-ejemplo">
-#include &lt;Servo.h&gt;
-
+  <div class="paso-card">
+    <div class="paso-number">2</div>
+    <div>
+      <h3>Código del Circuito</h3>
+      <div class="code">#include &lt;Servo.h&gt;
 Servo servo;
 
 void setup() {
@@ -151,13 +140,62 @@ void loop() {
   delay(1000);
   servo.write(180);
   delay(1000);
-}
-</div>
+}</div>
+    </div>
+  </div>
+
+  <!-- VIDEO 1 -->
+  <div class="box">
+    <h2>🎬 Video del Proyecto (Tutorial 1)</h2>
+    <video controls>
+      <source src="mivideo.mp4" type="video/mp4">
+      Tu navegador no soporta video.
+    </video>
+    <p style="margin-top:10px;">Para mejor explicación, mira el video de YouTube en el enlace de abajo.</p>
+  </div>
+
+  <!-- VIDEO 2 -->
+  <div class="box">
+    <h2>🎬 Video del Proyecto (Tutorial 2)</h2>
+    <video controls>
+      <source src="mivideo2.mp4" type="video/mp4">
+      Tu navegador no soporta video.
+    </video>
+    <p style="margin-top:10px;">Para mejor explicación, mira el video de YouTube en el enlace de abajo.</p>
+  </div>
+
+  <!-- ✅ YOUTUBE CORREGIDO -->
+  <div class="box">
+    <h2>🔗 Video de Referencia (YouTube)</h2>
+    <iframe
+      src="https://www.youtube.com/embed/X-xXYQfeaMo"
+      allowfullscreen>
+    </iframe>
+    <p style="margin-top:10px;">
+      <a href="https://www.youtube.com/watch?v=X-xXYQfeaMo" target="_blank">Ver en YouTube</a>
+    </p>
+  </div>
+
+  <!-- ✅ FOTO DEL CÓDIGO -->
+  <div class="box">
+    <h2>📷 Foto del Código</h2>
+    <!--
+      Asegúrate de que el archivo se llame exactamente: codigo_servo.png
+      sin tildes, sin espacios, sin doble extensión, en la misma carpeta que este HTML.
+    -->
+    <img
+      src="codigo_servo.png"
+      alt="Foto del código Arduino - Servo Motor"
+      style="width:100%; border-radius:15px; margin-top:15px; display:block;"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+    >
+    <div class="img-fallback">
+      ⚠️ No se encontró la imagen.<br>
+      Asegúrate de que el archivo se llame <strong>codigo_servo.png</strong><br>
+      y esté en la misma carpeta que este HTML.
+    </div>
+  </div>
 
 </div>
-</div>
-
-</div>
-
 </body>
 </html>
