@@ -59,13 +59,13 @@ border-radius:15px;
 <div class="container">
 
 <div class="header">
-<h1>Sensor Ultrasonico & Servomotor</h1>
-<p>Uso del Servo Motor con Sensor Ultrasonico</p>
+<h1>Servo Motor</h1>
+<p>Uso del Servo Motor</p>
 </div>
 
 <div class="proyecto-descripcion">
 <h2>📋 Descripción</h2>
-<p>En la practica de hoy se realizara el movimiento de un Servo Motor dependiendo de la distancia con el sensor ultrasonico.</p>
+<p>En la practica de hoy se realizara el movimiento de un Servo Motor</p>
 </div>
 
 <!-- 🎬 VIDEO PROPIO -->
@@ -73,11 +73,37 @@ border-radius:15px;
 <h2>🎬 Video del Proyecto (tutorial)</h2>
 
 <video controls>
-<source src="senser.mp4" type="video/mp4">
+<source src="mivideo.mp4" type="video/mp4">
 Tu navegador no soporta video.
 </video>
 
-<p>Puedes reemplazar <b>.mp4</b> con tu archivo.</p>
+<p>para mejor explicacion video de youtube en el enlace</b> de abajo.</p>
+</div>
+
+
+<!-- 🎬 VIDEO PROPIO -->
+<div class="proyect video-box">
+<h2>🎬 Video del Proyecto (tutorial2)</h2>
+
+<video controls>
+<source src="mivideo2.mp4" type="video/mp4">
+Tu navegador no soporta video.
+</video>
+
+<p>para mejor explicacion video de youtube en el enlace</b> de abajo.</p>
+</div>  
+  
+<!-- 🔗 VIDEO YOUTUBE -->
+<div class="proyecto-descripcion">
+<h2>🔗 Video de Referencia (YouTube)</h2>
+
+<iframe src="https://youtu.be/X-xXYQfeaMo?si=RbPE8JhF-ZHMWNYv/embed/TU_ID_VIDEO"></iframe>
+
+<p>
+<a href="https://youtu.be/X-xXYQfeaMo?si=RbPE8JhF-ZHMWNYv/watch?v=TU_ID_VIDEO" target="_blank">
+Ver en YouTube
+</a>
+</p>
 </div>
 
 <!-- 🛠️ MATERIALES -->
@@ -87,8 +113,20 @@ Tu navegador no soporta video.
 <li>Servo Motor</li>
 <li>Arduino</li>
 <li>Jumpers</li>
-<li>Sensor Ultrasonico</li>
 </ul>
+</div>
+
+<!-- PASOS -->
+<div class="paso-card">
+<div class="paso-number">1</div>
+<div>
+<h3>Conexión</h3>
+<p>
+Señal → pin digital 9<br>
+VCC → 5V<br>
+GND → GND
+</p>
+</div>
 </div>
 
 <!-- 💻 CODIGO -->
@@ -97,57 +135,46 @@ Tu navegador no soporta video.
 <div>
 <h3>Código del Circuito</h3>
 
-<div class="sensercod.png">
+<div class="codigo-ejemplo">
 #include <Servo.h>
 int cm=0;
-long distancia,duracion; //long valores decimales 
+long distancia,duracion; 
 int posicion1=90;
 int posicion2=-90;
-Servo miServo; //al pin 13
-#define Pecho 6 //Echo al pin 6
-#define Ptrig 7 //Trig pin 7
-
+Servo miServo;
 void setup() {
-  Serial.begin (9600);   //inicializa el puerto serie a 9600 baudios 
- pinMode(Pecho, INPUT);  //define el pin 6 como entrada (echo)
- pinMode(Ptrig, OUTPUT); //define el pin 7 como salida (triger)
- miServo.attach (13);         //define el pin 13 como salida para mover el servo enviando la señal de distancia menor a 10
-
+  Serial.begin (9600);   
+ pinMode(Pecho, INPUT); 
+ pinMode(Ptrig, OUTPUT); 
+ miServo.attach (13);
 }
-
 void loop() {
-  
 digitalWrite (Ptrig,LOW);
   delayMicroseconds(2);
-  digitalWrite(Ptrig,HIGH); //genera el pulso de triger de 10ms 
+  digitalWrite(Ptrig,HIGH); 
   delayMicroseconds(10);
   digitalWrite(Ptrig,LOW);
-
-  duracion= pulseIn(Pecho, HIGH);  //con esto sabemos cuanto tiempo estuvo en alto(HIGH)
-  distancia =(duracion/2)/29;     //   calcula la distancia en centimetros
-
-  if (distancia >=500 || distancia <=0){   //si la distancia es mayor a 500cm o menor a 0cm 
-    Serial.println("---");                 //no mide nada
+  duracion= pulseIn(Pecho, HIGH);  
+  distancia =(duracion/2)/29;
+  if (distancia >=500 || distancia <=0){  
+    Serial.println("---");            
   }
   else {
-    Serial.print(distancia);               //envia el valor de la distancia por el puerto serial   
-    Serial.println("cm");                  //le coloca a la distancia los centimetros "cm"
-    digitalWrite(13,LOW);                    //en bajo el pin 13, no mueve el servo 
+    Serial.print(distancia);               
+    Serial.println("cm");                
+    digitalWrite(13,LOW);               
   }
-
   if (distancia <=10 && distancia >=1){
-  miServo.write(posicion1);                //mueve el servo si la distancia es menor a 10cm 
-  Serial.println("Obstaculo");          //envia la palabra "obstaculo" por el puerto serial 
-  
+  miServo.write(posicion1);              
+  Serial.println("Obstaculo");     
   }
   else 
   {
     miServo.write(posicion2);
   }
-  delay(400);                             //espera 400ms para que logre ver la distancia  
-  
+  delay(400);        
 }
-  </div>
+</div>
 
 </div>
 </div>
