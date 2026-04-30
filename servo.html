@@ -1,55 +1,146 @@
-<!-- AGREGA ESTO después de la descripción o donde prefieras -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maqueta - Proyecto Arduino</title>
+
+<style>
+/* (TODO tu CSS original SIN cambios) */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #ff6b9d 0%, #c239b3 50%, #ffa8e1 100%);
+min-height:100vh;
+}
+
+/* SOLO agregamos esto para placeholders */
+.placeholder{
+border:2px dashed #ff6b9d;
+padding:40px;
+text-align:center;
+border-radius:15px;
+color:#999;
+}
+
+.codigo-ejemplo{
+background:#2d2d2d;
+color:#fff;
+padding:20px;
+border-radius:15px;
+font-family:monospace;
+margin-top:10px;
+}
+
+/* (puedes pegar aquí TODO tu CSS largo original sin problema) */
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<div class="emoji-decoration">🏠</div>
+<h1>Servo Motor</h1>
+<p class="subtitle">Uso del Servo Motor</p>
+</div>
+
+<!-- DESCRIPCIÓN -->
+<div class="proyecto-descripcion">
+<h2>📋 Descripción del Proyecto</h2>
+<p>En la practica de hoy se realizara el movimiento de un Servo Motor</p>
+
+<div class="funciones-lista">
+<div class="funcion-item">
+<span class="funcion-icon">💡</span>
+<div class="funcion-text">El Servo Motor tiene hasta 180 grados de movilidad.</div>
+<img src="servo.PNG" width="300">
+</div>
+</div>
+</div>
+
+<!-- CODIGO IMAGEN -->
+<div class="proyecto-descripcion">
+<h2>💡 Código (imagen)</h2>
+<img src="servocod.png" width="300">
+</div>
 
 <!-- VIDEO -->
 <div class="proyecto-descripcion">
-    <h2>
-        <span>🎥</span>
-        Video del Proyecto
-    </h2>
-    <div style="border:2px dashed #ff6b9d; padding:40px; text-align:center; border-radius:15px; color:#999;">
-        Aquí va el video
-    </div>
+<h2>🎥 Video del Proyecto</h2>
+<div class="placeholder">
+Aquí va el video
+</div>
 </div>
 
 <!-- ENLACE -->
 <div class="proyecto-descripcion">
-    <h2>
-        <span>🔗</span>
-        Enlace
-    </h2>
-    <div style="border:2px dashed #c239b3; padding:30px; text-align:center; border-radius:15px;">
-        <a href="#" style="color:#c239b3; font-weight:bold; text-decoration:none;">
-            Aquí va el enlace
-        </a>
-    </div>
+<h2>🔗 Enlace</h2>
+<div class="placeholder">
+Aquí va el enlace
+</div>
 </div>
 
-<!-- CODIGO -->
+<!-- CODIGO REAL -->
 <div class="proyecto-descripcion">
-    <h2>
-        <span>💻</span>
-        Código
-    </h2>
-    <div class="codigo-ejemplo">
-<span class="comment">// Código de ejemplo para Servo Motor</span>
+<h2>💻 Código</h2>
 
-<span class="keyword">#include</span> &lt;Servo.h&gt;
+<div class="codigo-ejemplo">
+// Código de ejemplo Servo
+
+#include &lt;Servo.h&gt;
 
 Servo miServo;
 
-<span class="keyword">void</span> setup() {
-    miServo.attach(<span class="number">9</span>);
+void setup() {
+  miServo.attach(9);
 }
 
-<span class="keyword">void</span> loop() {
-    miServo.write(<span class="number">0</span>);
-    delay(<span class="number">1000</span>);
-    
-    miServo.write(<span class="number">90</span>);
-    delay(<span class="number">1000</span>);
-    
-    miServo.write(<span class="number">180</span>);
-    delay(<span class="number">1000</span>);
+void loop() {
+  miServo.write(0);
+  delay(1000);
+
+  miServo.write(90);
+  delay(1000);
+
+  miServo.write(180);
+  delay(1000);
 }
-    </div>
 </div>
+
+</div>
+
+<!-- MATERIALES -->
+<div class="materiales-box">
+<h2>🛠️ Materiales</h2>
+<ul>
+<li>Servo Motor</li>
+<li>Arduino</li>
+<li>Jumpers</li>
+</ul>
+</div>
+
+<!-- PASOS -->
+<div class="pasos-section">
+
+<div class="paso-card">
+<h3>1. Conexión</h3>
+<p>Conecta señal, VCC y GND correctamente.</p>
+</div>
+
+<div class="paso-card">
+<h3>2. Código</h3>
+<p>Sube el código al Arduino.</p>
+</div>
+
+</div>
+
+<a href="index.html" class="btn-back">← Volver</a>
+
+</div>
+
+</body>
+</html>
