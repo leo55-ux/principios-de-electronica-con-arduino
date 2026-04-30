@@ -164,7 +164,7 @@ void loop() {
     <p style="margin-top:10px;">Para mejor explicación, mira el video de YouTube en el enlace de abajo.</p>
   </div>
 
-  <!-- ✅ YOUTUBE CORREGIDO -->
+  <!-- YOUTUBE -->
   <div class="box">
     <h2>🔗 Video de Referencia (YouTube)</h2>
     <iframe
@@ -176,23 +176,38 @@ void loop() {
     </p>
   </div>
 
-  <!-- ✅ FOTO DEL CÓDIGO -->
+  <!-- FOTO DEL CÓDIGO -->
   <div class="box">
     <h2>📷 Foto del Código</h2>
     <!--
-      Asegúrate de que el archivo se llame exactamente: codigo_servo.png
-      sin tildes, sin espacios, sin doble extensión, en la misma carpeta que este HTML.
+      IMPORTANTE: Renombra tu imagen a exactamente: codigo3.png
+      (sin tilde, sin espacios) y colócala en la misma carpeta que este HTML.
+      Nombres que funcionan: codigo3.png  |  codigo3.jpg  |  codigo3.jpeg
     -->
     <img
-      src="código3.png"
+      id="foto-codigo"
+      src="codigo3.png"
       alt="Foto del código Arduino - Servo Motor"
       style="width:100%; border-radius:15px; margin-top:15px; display:block;"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      onerror="
+        /* Intentar variantes del nombre por si la extensión o nombre difiere */
+        const intentos = ['codigo3.jpg','codigo3.jpeg','código3.png','código3.jpg','Codigo3.png','CODIGO3.PNG'];
+        const img = document.getElementById('foto-codigo');
+        const fallback = document.getElementById('img-fallback');
+        let idx = parseInt(img.dataset.intento || 0);
+        if (idx < intentos.length) {
+          img.dataset.intento = idx + 1;
+          img.src = intentos[idx];
+        } else {
+          img.style.display = 'none';
+          fallback.style.display = 'block';
+        }
+      "
     >
-    <div class="img-fallback">
-      ⚠️ No se encontró la imagen.<br>
-      Asegúrate de que el archivo sea <strong> png</strong><br>
-      y esté en la misma carpeta que este HTML.
+    <div id="img-fallback" class="img-fallback">
+      ⚠️ No se encontró la imagen.<br><br>
+      <strong>Solución:</strong> Renombra tu archivo de imagen a <strong>codigo3.png</strong>
+      (sin tilde en la "o") y colócalo en la misma carpeta que este archivo HTML.
     </div>
   </div>
 
