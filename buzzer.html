@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maqueta - Proyecto Arduino</title>
+    <title>buzzer - Proyecto Arduino</title>
     <style>
         * {
             margin: 0;
@@ -692,14 +692,71 @@ Pin negativo (-): Conéctalo a GND.                    </p>
             <div class="paso-card">
                 <div class="paso-number">4</div>
                 <div class="paso-content">
-                    <h3 class="paso-title">Conectar los push boton</h3>
+                    <h3 class="paso-title">Codigo</h3>
                     <p class="paso-description">
-                        Con un jumper conecta a el lado positivo y con otro al negativo en el push boton donde pasara la coriente
-                        que alimentara a al led.
+                        // Definición de pines
+const int pinPot = A0;
+const int ledVerde = 2;
+const int ledAmarillo = 3;
+const int ledRojo = 4;
+const int buzzer = 8;
+
+void setup() {
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledAmarillo, OUTPUT);
+  pinMode(ledRojo, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+  Serial.begin(9600); // Para monitorear el voltaje en la PC
+}
+
+void loop() {
+  int lectura = analogRead(pinPot);
+  float voltaje = lectura * (5.0 / 1023.0);
+  
+  // Mostrar voltaje en el monitor serie
+  Serial.print("Voltaje: ");
+  Serial.println(voltaje);
+
+  // Lógica de los LEDs
+  // 1V o más: Prende Verde
+  if (voltaje >= 1.0) {
+    digitalWrite(ledVerde, HIGH);
+  } else {
+    digitalWrite(ledVerde, LOW);
+  }
+
+  // 3V o más: Prende Amarillo
+  if (voltaje >= 3.0) {
+    digitalWrite(ledAmarillo, HIGH);
+  } else {
+    digitalWrite(ledAmarillo, LOW);
+  }
+
+  // 5V: Prende Rojo y suena la música
+  if (voltaje >= 4.9) { // Usamos 4.9 por si hay pequeñas caídas de tensión
+    digitalWrite(ledRojo, HIGH);
+    tocarMelodia(); 
+  } else {
+    digitalWrite(ledRojo, LOW);
+    noTone(buzzer);
+  }
+
+  delay(100); // Estabilidad
+}
+
+void tocarMelodia() {
+  // Una pequeña fanfarria simple (Notas: Do, Mi, Sol)
+  tone(buzzer, 262, 100); // Do
+  delay(150);
+  tone(buzzer, 330, 100); // Mi
+  delay(150);
+  tone(buzzer, 392, 100); // Sol
+  delay(150);
+}
                     </p>
                     <div class="paso-tip">
                         <span class="paso-tip-icon">📏</span>
-                        <span class="paso-tip-text">Tip: el push boton tiene terminales que van a un mismo lugar asegurate de no hacerlo asi.</span>
+                        <span class="paso-tip-text">Tip:verifica que los componentes esten conectados en los pines correctos.</span>
                     </div>
                 </div>
             </div>
