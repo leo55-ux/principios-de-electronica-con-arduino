@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fotoresistencia y 6 LEDs</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── LEDs flotantes en el fondo ── */
+.led-bg{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+.led-float{
+  position:absolute;
+  bottom:-60px;
+  animation: floatUp linear infinite;
+  opacity:0.7;
+}
+.led-float svg{
+  filter:drop-shadow(0 0 6px currentColor);
+}
+@keyframes floatUp{
+  0%  {transform:translateY(0) rotate(0deg);   opacity:0.7;}
+  80% {opacity:0.5;}
+  100%{transform:translateY(-110vh) rotate(360deg); opacity:0;}
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:2rem;
+  position:relative;
+  z-index:1;
+}
+.header{
+  text-align:center;
+  background:white;
+  padding:3rem;
+  border-radius:20px;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+.box{
+  background:white;
+  padding:2rem;
+  border-radius:20px;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* ── Card de materiales con LEDs flotantes internos ── */
+.materiales-card{
+  background:white;
+  border-radius:20px;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+  overflow:hidden;
+  position:relative;
+}
+.materiales-header{
+  padding:1.5rem 2rem 1rem;
+  position:relative;
+  z-index:2;
+}
+.materiales-header h2{font-size:1.4rem;}
+
+/* LEDs mini flotando dentro de la card */
+.led-mini-bg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.led-mini{
+  position:absolute;
+  animation: floatUpMini linear infinite;
+  opacity:0.15;
+}
+@keyframes floatUpMini{
+  0%  {transform:translateY(0);   opacity:0.18;}
+  100%{transform:translateY(-320px); opacity:0;}
+}
+
+/* Lista de materiales clicables */
+.materiales-lista{
+  list-style:none;
+  padding:0 2rem 1.5rem;
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0.6rem;
+}
+@media(max-width:600px){
+  .materiales-lista{grid-template-columns:1fr;}
+}
+.material-item{
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  background:#fff0f8;
+  border:2px solid transparent;
+  border-radius:12px;
+  padding:0.7rem 1rem;
+  cursor:pointer;
+  transition:all 0.22s;
+  user-select:none;
+  font-size:0.95rem;
+}
+.material-item:hover{
+  background:#ffd6f0;
+  border-color:#c239b3;
+  transform:scale(1.03);
+}
+.material-item.activo{
+  background:linear-gradient(135deg,#ff9ad5,#ffc3e6);
+  border-color:#c239b3;
+  box-shadow:0 4px 15px rgba(194,57,179,0.4);
+  transform:scale(1.05);
+  font-weight:600;
+  color:#6b006b;
+}
+.material-emoji{font-size:1.3rem;}
+
+/* Pasos */
+.paso-card{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1rem;
+  background:linear-gradient(135deg,#ff9ad5,#ffc3e6);
+  border-radius:20px;
+  padding:2rem;
+  margin-bottom:1.5rem;
+  box-shadow:0 10px 25px rgba(194,57,179,0.3);
+  transition:0.3s;
+}
+.paso-card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 15px 35px rgba(194,57,179,0.5);
+}
+.paso-number{
+  width:60px;
+  height:60px;
+  background:#c239b3;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:15px;
+  font-weight:bold;
+  font-size:1.5rem;
+  flex-shrink:0;
+}
+video{width:100%;border-radius:15px;}
+.code{
+  background:#2d2d2d;
+  color:#fff;
+  padding:20px;
+  border-radius:10px;
+  margin-top:15px;
+  font-family:monospace;
+  overflow:auto;
+  white-space:pre;
+  font-size:0.88rem;
+  line-height:1.5;
+}
+
+/* YouTube thumbnail */
+.yt-wrapper{
+  position:relative;display:block;
+  margin-top:15px;border-radius:15px;
+  overflow:hidden;cursor:pointer;text-decoration:none;
+}
+.yt-wrapper img{width:100%;display:block;border-radius:15px;transition:filter 0.3s;}
+.yt-wrapper:hover img{filter:brightness(0.75);}
+.yt-play-btn{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:72px;height:72px;
+  background:rgba(194,57,179,0.92);
+  border-radius:50%;display:flex;
+  align-items:center;justify-content:center;
+  transition:transform 0.2s,background 0.2s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+.yt-wrapper:hover .yt-play-btn{background:#c239b3;transform:translate(-50%,-50%) scale(1.1);}
+.yt-play-btn svg{fill:white;margin-left:6px;}
+.yt-label{margin-top:12px;font-size:0.9rem;color:#555;}
+.yt-label a{color:#c239b3;font-weight:bold;text-decoration:none;}
+.yt-label a:hover{text-decoration:underline;}
+
+/* Imagen fallback */
+.img-fallback{
+  display:none;background:#f0f0f0;
+  border:2px dashed #c239b3;border-radius:15px;
+  padding:2rem;text-align:center;color:#888;margin-top:15px;
+}
+
+/* Indicador de LEDs encendidos */
+.led-strip{
+  display:flex;gap:10px;align-items:center;
+  margin-top:10px;flex-wrap:wrap;
+}
+.led-dot{
+  width:24px;height:24px;border-radius:50%;
+  background:#ddd;border:2px solid #bbb;
+  transition:all 0.3s;
+  box-shadow:none;
+}
+.led-dot.on{
+  background:#ff3;border-color:#cc0;
+  box-shadow:0 0 10px #ff0, 0 0 20px #ff0;
+}
+</style>
+</head>
+<body>
+
+<!-- LEDs flotantes en el fondo de la página -->
+<div class="led-bg" id="ledBg"></div>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Fotoresistencia y 6 LEDs</h1>
+    <p>Encendido automático dependiendo de la luz</p>
+  </div>
+
+  <div class="box">
+    <h2>📋 Descripción</h2>
+    <p>Los 6 LEDs se encenderán de forma progresiva cuando haya poca luz y se apagarán cuando haya mucha luz, utilizando una fotoresistencia (LDR). Cuanto menos luz haya, más LEDs se activan.</p>
+  </div>
+
+  <!-- MATERIALES con LEDs flotando en el fondo -->
+  <div class="materiales-card">
+    <div class="led-mini-bg" id="ledMiniBg"></div>
+    <div class="materiales-header">
+      <h2>🛠️ Materiales <span style="font-size:0.85rem;color:#999;">(pulsa para resaltar)</span></h2>
+    </div>
+    <ul class="materiales-lista" id="materialesLista">
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">💡</span> Fotoresistencia (LDR)</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">🔴</span> LED x6 (distintos colores)</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">⚡</span> Resistencia 220Ω x6 (para LEDs)</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">🔧</span> Resistencia 10kΩ (para LDR)</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">🧱</span> Protoboard</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">🔌</span> Cables (jumpers)</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">🤖</span> Arduino UNO</li>
+      <li class="material-item" onclick="toggleMaterial(this)"><span class="material-emoji">💻</span> Cable USB para Arduino</li>
+    </ul>
+  </div>
+
+  <!-- PASOS -->
+  <div class="paso-card">
+    <div class="paso-number">1</div>
+    <div>
+      <h3>Conexión de la LDR</h3>
+      <p>Conecta la fotoresistencia a 5V y al pin A0.<br>Agrega una resistencia de 10kΩ a GND (divisor de voltaje).</p>
+    </div>
+  </div>
+
+  <div class="paso-card">
+    <div class="paso-number">2</div>
+    <div>
+      <h3>Conexión de los 6 LEDs</h3>
+      <p>
+        LED 1 → pin digital 3 → resistencia 220Ω → GND<br>
+        LED 2 → pin digital 4 → resistencia 220Ω → GND<br>
+        LED 3 → pin digital 5 → resistencia 220Ω → GND<br>
+        LED 4 → pin digital 6 → resistencia 220Ω → GND<br>
+        LED 5 → pin digital 7 → resistencia 220Ω → GND<br>
+        LED 6 → pin digital 8 → resistencia 220Ω → GND
+      </p>
+    </div>
+  </div>
+
+  <div class="paso-card">
+    <div class="paso-number">3</div>
+    <div>
+      <h3>Funcionamiento progresivo</h3>
+      <p>El Arduino lee la luz desde la LDR.<br>
+        Mucha luz → todos apagados.<br>
+        Poca luz → se encienden 1 a 6 LEDs de forma progresiva.<br>
+        Sin luz → los 6 encendidos al mismo tiempo.
+      </p>
+      <div class="led-strip">
+        <span style="font-size:0.85rem;color:#888;">Simulación:</span>
+        <div class="led-dot" id="d1"></div>
+        <div class="led-dot" id="d2"></div>
+        <div class="led-dot" id="d3"></div>
+        <div class="led-dot" id="d4"></div>
+        <div class="led-dot" id="d5"></div>
+        <div class="led-dot" id="d6"></div>
+        <button onclick="simularLeds()" style="margin-left:8px;padding:4px 14px;border-radius:20px;border:2px solid #c239b3;background:white;color:#c239b3;cursor:pointer;font-weight:bold;">▶ Simular</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="box">
+    <h2>🎬 Video del Proyecto</h2>
+    <video controls>
+      <source src="tutorial2.mp4" type="video/mp4">
+      Tu navegador no soporta video.
+    </video>
+  </div>
+
+  <!-- YOUTUBE ARREGLADO -->
+  <div class="box">
+    <h2>🔗 Video de Referencia (YouTube)</h2>
+    <a class="yt-wrapper"
+       href="https://www.youtube.com/watch?v=4aKJAz0c_tM"
+       target="_blank" rel="noopener noreferrer"
+       title="Ver video en YouTube">
+      <img
+        src="https://img.youtube.com/vi/4aKJAz0c_tM/maxresdefault.jpg"
+        alt="Video referencia - LDR y LEDs Arduino"
+        onerror="this.src='https://img.youtube.com/vi/4aKJAz0c_tM/hqdefault.jpg';"
+      >
+      <div class="yt-play-btn">
+        <svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </a>
+    <p class="yt-label">
+      🎬 Haz clic en la imagen para ver el video &nbsp;|&nbsp;
+      <a href="https://www.youtube.com/watch?v=4aKJAz0c_tM" target="_blank" rel="noopener noreferrer">Abrir enlace directo</a>
+    </p>
+  </div>
+
+  <!-- CÓDIGO actualizado para 6 LEDs -->
+  <div class="box">
+    <h2>💻 Código — 6 LEDs progresivos</h2>
+    <div class="code">int ldr = A0;
+int leds[] = {3, 4, 5, 6, 7, 8};
+int numLeds = 6;
+int valor = 0;
+
+void setup() {
+  for (int i = 0; i &lt; numLeds; i++) {
+    pinMode(leds[i], OUTPUT);
+  }
+  Serial.begin(9600);
+}
+
+void loop() {
+  valor = analogRead(ldr);
+  Serial.println(valor);
+
+  // Mapea la lectura (0-1023) a cuántos LEDs encender (0-6)
+  // Invertido: menos luz = más LEDs
+  int ledsEncendidos = map(valor, 0, 1023, numLeds, 0);
+
+  for (int i = 0; i &lt; numLeds; i++) {
+    if (i &lt; ledsEncendidos) {
+      digitalWrite(leds[i], HIGH);
+    } else {
+      digitalWrite(leds[i], LOW);
+    }
+  }
+
+  delay(200);
+}</div>
+  </div>
+
+  <!-- FOTO CÓDIGO -->
+  <div class="box">
+    <h2>📷 Foto del Código</h2>
+    <img
+      src="codigo2.png"
+      alt="Foto del código Arduino"
+      style="width:100%;border-radius:15px;margin-top:15px;display:block;"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+    >
+    <div class="img-fallback">
+      ⚠️ No se encontró la imagen.<br>
+      Asegúrate de que el archivo se llame <strong>codigo2.png</strong><br>
+      y esté en la misma carpeta que este HTML.
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Toggle materiales ──
+function toggleMaterial(el){
+  el.classList.toggle('activo');
+}
+
+// ── Simulación de LEDs ──
+var simTimeout = null;
+function simularLeds(){
+  var dots = ['d1','d2','d3','d4','d5','d6'];
+  dots.forEach(function(id){ document.getElementById(id).classList.remove('on'); });
+  if(simTimeout) clearTimeout(simTimeout);
+  var i = 0;
+  function encender(){
+    if(i < dots.length){
+      document.getElementById(dots[i]).classList.add('on');
+      i++;
+      simTimeout = setTimeout(encender, 300);
+    } else {
+      simTimeout = setTimeout(function(){
+        dots.forEach(function(id){ document.getElementById(id).classList.remove('on'); });
+      }, 1500);
+    }
+  }
+  encender();
+}
+
+// ── LEDs flotantes en el fondo de la página ──
+(function(){
+  var colors = ['#ff3','#f80','#0f0','#f00','#0af','#f0f','#fff'];
+  var bg = document.getElementById('ledBg');
+  for(var k=0; k<18; k++){
+    (function(k){
+      var div = document.createElement('div');
+      div.className = 'led-float';
+      var color = colors[k % colors.length];
+      var size = 18 + Math.random()*18;
+      div.style.left = (Math.random()*98) + '%';
+      div.style.animationDuration = (8 + Math.random()*14) + 's';
+      div.style.animationDelay = (Math.random()*12) + 's';
+      div.style.color = color;
+      div.innerHTML = '<svg width="'+size+'" height="'+(size*1.7)+'" viewBox="0 0 20 34" fill="none" xmlns="http://www.w3.org/2000/svg">'
+        + '<ellipse cx="10" cy="10" rx="9" ry="9" fill="'+color+'" opacity="0.85"/>'
+        + '<rect x="7" y="19" width="6" height="10" rx="2" fill="#aaa"/>'
+        + '<line x1="7" y1="29" x2="5" y2="34" stroke="#888" stroke-width="1.5"/>'
+        + '<line x1="13" y1="29" x2="15" y2="34" stroke="#888" stroke-width="1.5"/>'
+        + '</svg>';
+      bg.appendChild(div);
+    })(k);
+  }
+})();
+
+// ── LEDs mini flotando dentro de la card de materiales ──
+(function(){
+  var colors2 = ['#ff3','#f80','#0f0','#f00','#0af','#f0f'];
+  var bg2 = document.getElementById('ledMiniBg');
+  for(var k=0; k<12; k++){
+    var div = document.createElement('div');
+    div.className = 'led-mini';
+    var color = colors2[k % colors2.length];
+    var size = 14 + Math.random()*10;
+    div.style.left = (Math.random()*95) + '%';
+    div.style.bottom = (Math.random()*10) + 'px';
+    div.style.animationDuration = (5 + Math.random()*8) + 's';
+    div.style.animationDelay = (Math.random()*8) + 's';
+    div.innerHTML = '<svg width="'+size+'" height="'+(size*1.7)+'" viewBox="0 0 20 34" fill="none" xmlns="http://www.w3.org/2000/svg">'
+      + '<ellipse cx="10" cy="10" rx="9" ry="9" fill="'+color+'" opacity="0.9"/>'
+      + '<rect x="7" y="19" width="6" height="10" rx="2" fill="#aaa"/>'
+      + '<line x1="7" y1="29" x2="5" y2="34" stroke="#888" stroke-width="1.5"/>'
+      + '<line x1="13" y1="29" x2="15" y2="34" stroke="#888" stroke-width="1.5"/>'
+      + '</svg>';
+    bg2.appendChild(div);
+  }
+})();
+</script>
+</body>
+</html>
