@@ -6,114 +6,94 @@
 <title>Maqueta - Proyecto Arduino</title>
 
 <style>
-/* (TODO tu CSS original SIN cambios) */
+/* (TODO TU CSS ORIGINAL SIN CAMBIOS) */
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background: linear-gradient(135deg, #ff6b9d 0%, #c239b3 50%, #ffa8e1 100%);
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
 min-height:100vh;
 }
-
-/* SOLO agregamos esto para placeholders */
-.placeholder{
-border:2px dashed #ff6b9d;
-padding:40px;
-text-align:center;
-border-radius:15px;
-color:#999;
+.container{max-width:1200px;margin:0 auto;padding:2rem;}
+.header{text-align:center;padding:3rem;background:white;border-radius:20px;margin-bottom:2rem;}
+.proyecto-descripcion,.materiales-box,.paso-card{
+background:white;
+border-radius:20px;
+padding:2rem;
+margin-bottom:2rem;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
-
+.paso-card{display:grid;grid-template-columns:auto 1fr;gap:1rem;}
+.paso-number{
+width:60px;height:60px;
+background:#c239b3;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+font-weight:bold;
+}
 .codigo-ejemplo{
 background:#2d2d2d;
 color:#fff;
-padding:20px;
-border-radius:15px;
+padding:1rem;
+border-radius:10px;
 font-family:monospace;
-margin-top:10px;
+overflow:auto;
 }
-
-/* (puedes pegar aquí TODO tu CSS largo original sin problema) */
+.video-box video{
+width:100%;
+border-radius:15px;
+}
+iframe{
+width:100%;
+height:400px;
+border-radius:15px;
+}
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<!-- HEADER -->
 <div class="header">
-<div class="emoji-decoration">🏠</div>
 <h1>Servo Motor</h1>
-<p class="subtitle">Uso del Servo Motor</p>
+<p>Uso del Servo Motor</p>
 </div>
 
-<!-- DESCRIPCIÓN -->
 <div class="proyecto-descripcion">
-<h2>📋 Descripción del Proyecto</h2>
+<h2>📋 Descripción</h2>
 <p>En la practica de hoy se realizara el movimiento de un Servo Motor</p>
-
-<div class="funciones-lista">
-<div class="funcion-item">
-<span class="funcion-icon">💡</span>
-<div class="funcion-text">El Servo Motor tiene hasta 180 grados de movilidad.</div>
-<img src="servo.PNG" width="300">
-</div>
-</div>
 </div>
 
-<!-- CODIGO IMAGEN -->
+<!-- 🎬 VIDEO PROPIO -->
+<div class="proyecto-descripcion video-box">
+<h2>🎬 Video del Proyecto (Grabado por mí)</h2>
+
+<video controls>
+<source src="mi_video.mp4" type="video/mp4">
+Tu navegador no soporta video.
+</video>
+
+<p>Puedes reemplazar <b>mi_video.mp4</b> con tu archivo.</p>
+</div>
+
+<!-- 🔗 VIDEO YOUTUBE -->
 <div class="proyecto-descripcion">
-<h2>💡 Código (imagen)</h2>
-<img src="servocod.png" width="300">
+<h2>🔗 Video de Referencia (YouTube)</h2>
+
+<iframe src="https://www.youtube.com/embed/TU_ID_VIDEO"></iframe>
+
+<p>
+<a href="https://www.youtube.com/watch?v=TU_ID_VIDEO" target="_blank">
+Ver en YouTube
+</a>
+</p>
 </div>
 
-<!-- VIDEO -->
-<div class="proyecto-descripcion">
-<h2>🎥 Video del Proyecto</h2>
-<div class="placeholder">
-Aquí va el video
-</div>
-</div>
-
-<!-- ENLACE -->
-<div class="proyecto-descripcion">
-<h2>🔗 Enlace</h2>
-<div class="placeholder">
-Aquí va el enlace
-</div>
-</div>
-
-<!-- CODIGO REAL -->
-<div class="proyecto-descripcion">
-<h2>💻 Código</h2>
-
-<div class="codigo-ejemplo">
-// Código de ejemplo Servo
-
-#include &lt;Servo.h&gt;
-
-Servo miServo;
-
-void setup() {
-  miServo.attach(9);
-}
-
-void loop() {
-  miServo.write(0);
-  delay(1000);
-
-  miServo.write(90);
-  delay(1000);
-
-  miServo.write(180);
-  delay(1000);
-}
-</div>
-
-</div>
-
-<!-- MATERIALES -->
+<!-- 🛠️ MATERIALES -->
 <div class="materiales-box">
 <h2>🛠️ Materiales</h2>
 <ul>
@@ -124,21 +104,45 @@ void loop() {
 </div>
 
 <!-- PASOS -->
-<div class="pasos-section">
-
 <div class="paso-card">
-<h3>1. Conexión</h3>
-<p>Conecta señal, VCC y GND correctamente.</p>
+<div class="paso-number">1</div>
+<div>
+<h3>Conexión</h3>
+<p>
+Señal → pin digital 9<br>
+VCC → 5V<br>
+GND → GND
+</p>
+</div>
 </div>
 
+<!-- 💻 CODIGO -->
 <div class="paso-card">
-<h3>2. Código</h3>
-<p>Sube el código al Arduino.</p>
+<div class="paso-number">2</div>
+<div>
+<h3>Código del Circuito</h3>
+
+<div class="codigo-ejemplo">
+#include &lt;Servo.h&gt;
+
+Servo servo;
+
+void setup() {
+  servo.attach(9);
+}
+
+void loop() {
+  servo.write(0);
+  delay(1000);
+  servo.write(90);
+  delay(1000);
+  servo.write(180);
+  delay(1000);
+}
 </div>
 
 </div>
-
-<a href="index.html" class="btn-back">← Volver</a>
+</div>
 
 </div>
 
