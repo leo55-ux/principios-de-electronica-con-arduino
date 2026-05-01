@@ -7,92 +7,435 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
-min-height:100vh;
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:linear-gradient(135deg,#ff6b9d 0%,#c239b3 50%,#ffa8e1 100%);
+  min-height:100vh;
+  transition: background 0.8s ease;
 }
-.container{max-width:1100px;margin:auto;padding:2rem;}
+body.oscuro {
+  background: #0a0a0f !important;
+}
+
+/* ======================== */
+/* OVERLAY OSCURO           */
+/* ======================== */
+#overlay-oscuro {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  pointer-events: none;
+  z-index: 5;
+  transition: background 0.7s ease;
+}
+#overlay-oscuro.activo {
+  background: rgba(0,0,0,0.82);
+}
+
+/* ======================== */
+/* LEDS FLOTANTES           */
+/* ======================== */
+#leds-flotantes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  overflow: hidden;
+}
+.led-flotante {
+  position: absolute;
+  border-radius: 50% 50% 35% 35%;
+  animation: subirLed linear infinite;
+  opacity: 0;
+}
+.led-flotante.visible {
+  opacity: 1;
+}
+@keyframes subirLed {
+  0%   { transform: translateY(110vh) scale(1) rotate(0deg); opacity: 0.9; }
+  80%  { opacity: 0.8; }
+  100% { transform: translateY(-15vh) scale(0.7) rotate(180deg); opacity: 0; }
+}
+
+.container{max-width:1100px;margin:auto;padding:2rem; position: relative; z-index: 10;}
 .header{
-text-align:center;
-background:white;
-padding:3rem;
-border-radius:20px;
-margin-bottom:2rem;
+  text-align:center;
+  background:white;
+  padding:3rem;
+  border-radius:20px;
+  margin-bottom:2rem;
+  transition: background 0.7s, color 0.7s;
 }
+body.oscuro .header { background: #1a1a2e; color: #eee; }
+
 .box{
-background:white;
-padding:2rem;
-border-radius:20px;
-margin-bottom:2rem;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  background:white;
+  padding:2rem;
+  border-radius:20px;
+  margin-bottom:2rem;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  transition: background 0.7s, color 0.7s, box-shadow 0.7s;
 }
+body.oscuro .box { background: #12121f; color: #ddd; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+body.oscuro .box h2 { color: #f0a0d0; }
+body.oscuro .box ul li { color: #bbb; }
+
 .paso-card{
-display:grid;
-grid-template-columns:auto 1fr;
-gap:1rem;
-background:linear-gradient(135deg,#ff9ad5,#ffc3e6);
-border-radius:20px;
-padding:2rem;
-margin-bottom:1.5rem;
-box-shadow:0 10px 25px rgba(194,57,179,0.3);
-transition:0.3s;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1rem;
+  background:linear-gradient(135deg,#ff9ad5,#ffc3e6);
+  border-radius:20px;
+  padding:2rem;
+  margin-bottom:1.5rem;
+  box-shadow:0 10px 25px rgba(194,57,179,0.3);
+  transition:0.3s;
 }
 .paso-card:hover{
-transform:translateY(-5px) scale(1.02);
-box-shadow:0 15px 35px rgba(194,57,179,0.5);
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 15px 35px rgba(194,57,179,0.5);
 }
+body.oscuro .paso-card {
+  background: linear-gradient(135deg, #3a0a2a, #1a0a1a);
+  box-shadow: 0 10px 25px rgba(194,57,179,0.15);
+}
+
 .paso-number{
-width:60px;
-height:60px;
-background:#c239b3;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:15px;
-font-weight:bold;
-font-size:1.5rem;
+  width:60px;height:60px;
+  background:#c239b3;
+  color:white;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:15px;font-weight:bold;font-size:1.5rem;
 }
-video{
-width:100%;
-border-radius:15px;
-}
-iframe{
-width:100%;
-height:400px;
-border-radius:15px;
-border:none;
-}
+video{width:100%;border-radius:15px;}
+iframe{width:100%;height:400px;border-radius:15px;border:none;}
 .code{
-background:#2d2d2d;
-color:#fff;
-padding:20px;
-border-radius:10px;
-margin-top:15px;
-font-family:monospace;
-overflow:auto;
-white-space:pre;
+  background:#2d2d2d;color:#fff;padding:20px;
+  border-radius:10px;margin-top:15px;
+  font-family:monospace;overflow:auto;white-space:pre;
 }
-/* ✅ IMAGEN: si no carga, muestra un mensaje visible */
-.foto-codigo img{
-width:100%;
-border-radius:15px;
-margin-top:15px;
-display:block;
-}
+.foto-codigo img{width:100%;border-radius:15px;margin-top:15px;display:block;}
 .foto-codigo .img-fallback{
-display:none;
-background:#f0f0f0;
-border:2px dashed #c239b3;
-border-radius:15px;
-padding:2rem;
-text-align:center;
-color:#888;
-margin-top:15px;
+  display:none;background:#f0f0f0;border:2px dashed #c239b3;
+  border-radius:15px;padding:2rem;text-align:center;color:#888;margin-top:15px;
+}
+
+/* ======================== */
+/* FOTOS FLOTANTES FONDO    */
+/* ======================== */
+.floating-components{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.float-item{
+  position:absolute;opacity:0.13;
+  animation:floatAnim linear infinite;
+}
+@keyframes floatAnim{
+  0%  {transform:translateY(110vh) rotate(0deg);}
+  100%{transform:translateY(-20vh) rotate(360deg);}
+}
+
+/* ======================== */
+/* CARD FOTORESISTENCIA LDR */
+/* ======================== */
+.ldr-sensor-card {
+  background: #1a1a1a;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  cursor: crosshair;
+  border: 2px solid #333;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  z-index: 10;
+}
+.ldr-sensor-card:hover {
+  border-color: #ff44cc44;
+  box-shadow: 0 10px 40px rgba(255,68,204,0.15);
+}
+
+.ldr-sensor-card h2 {
+  color: #ccc;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+}
+
+/* LDR visual central */
+.ldr-visual-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.ldr-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.ldr-body {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2a2a18, #111108);
+  border: 3px solid #555;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 0 8px rgba(255,230,50,0.1);
+  transition: box-shadow 0.4s, border-color 0.4s;
+  overflow: hidden;
+}
+.ldr-sensor-card:hover .ldr-body {
+  border-color: #888;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5), 0 0 20px rgba(255,230,50,0.05);
+}
+/* Zigzag en la LDR */
+.ldr-body::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid #444;
+}
+.ldr-body::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #0e0e08;
+  border: 1px solid #555;
+}
+.ldr-zigzag {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px; height: 32px;
+}
+.ldr-legs {
+  display: flex;
+  gap: 10px;
+}
+.ldr-leg {
+  width: 3px; height: 20px;
+  background: linear-gradient(to bottom, #aaa, #666);
+  border-radius: 2px;
+}
+.ldr-label {
+  color: #888;
+  font-size: 12px;
+  font-family: monospace;
+  margin-top: 4px;
+}
+
+/* Estado luz */
+.ldr-status {
+  flex: 1;
+  min-width: 180px;
+}
+.ldr-status-title {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 8px;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+.ldr-bar-wrap {
+  background: #111;
+  border-radius: 8px;
+  height: 14px;
+  width: 100%;
+  border: 1px solid #333;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.ldr-bar {
+  height: 100%;
+  width: 70%;
+  background: linear-gradient(90deg, #ffee22, #fff7aa);
+  border-radius: 8px;
+  transition: width 0.5s ease, background 0.5s ease;
+  box-shadow: 0 0 8px rgba(255,230,50,0.5);
+}
+.ldr-sensor-card:hover .ldr-bar {
+  width: 5%;
+  background: linear-gradient(90deg, #221100, #332200);
+  box-shadow: none;
+}
+.ldr-valor {
+  color: #ffee44;
+  font-family: monospace;
+  font-size: 13px;
+  transition: color 0.5s;
+}
+.ldr-sensor-card:hover .ldr-valor { color: #444; }
+.ldr-valor span { font-size: 18px; font-weight: bold; }
+
+/* Instrucción hover */
+.ldr-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #111;
+  border: 1px dashed #333;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 1.2rem;
+  color: #666;
+  font-size: 13px;
+  font-family: monospace;
+  transition: color 0.4s, border-color 0.4s;
+}
+.ldr-sensor-card:hover .ldr-hint {
+  color: #ff44cc;
+  border-color: #ff44cc55;
+}
+.ldr-hint-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #333;
+  transition: background 0.4s, box-shadow 0.4s;
+  flex-shrink: 0;
+}
+.ldr-sensor-card:hover .ldr-hint-dot {
+  background: #ff44cc;
+  box-shadow: 0 0 8px 3px rgba(255,68,204,0.6);
+  animation: pulso 0.8s ease-in-out infinite alternate;
+}
+@keyframes pulso {
+  0% { box-shadow: 0 0 6px 2px rgba(255,68,204,0.5); }
+  100% { box-shadow: 0 0 14px 6px rgba(255,68,204,0.9); }
+}
+
+/* LEDs en la card LDR */
+.leds-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 1.2rem;
+  align-items: flex-end;
+}
+.led-bulb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.led-glass {
+  width: 22px; height: 28px;
+  border-radius: 50% 50% 30% 30%;
+  position: relative;
+  transition: box-shadow 0.5s ease, background 0.5s ease;
+}
+.led-glass::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 5px;
+  width: 6px; height: 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  transition: background 0.5s;
+}
+
+/* Apagados por defecto */
+.led-r  { background: #2a0808; border: 1px solid #3a1010; }
+.led-g  { background: #082208; border: 1px solid #103010; }
+.led-b  { background: #080822; border: 1px solid #101030; }
+.led-y  { background: #222208; border: 1px solid #303010; }
+.led-w  { background: #1a1a1a; border: 1px solid #2a2a2a; }
+.led-p  { background: #1a0818; border: 1px solid #2a1028; }
+
+/* Encendidos al hover de la card */
+.ldr-sensor-card:hover .led-r {
+  background: #ff2222;
+  box-shadow: 0 0 14px 6px rgba(255,50,50,0.8), 0 0 30px 12px rgba(255,80,80,0.3);
+  animation: ledPulse 1.2s ease-in-out infinite alternate;
+}
+.ldr-sensor-card:hover .led-r::after { background: rgba(255,255,255,0.45); }
+.ldr-sensor-card:hover .led-g {
+  background: #22ff44;
+  box-shadow: 0 0 14px 6px rgba(50,255,80,0.8), 0 0 30px 12px rgba(80,255,100,0.3);
+  animation: ledPulse 1.2s ease-in-out infinite alternate;
+  animation-delay: 0.2s;
+}
+.ldr-sensor-card:hover .led-g::after { background: rgba(255,255,255,0.45); }
+.ldr-sensor-card:hover .led-b {
+  background: #2255ff;
+  box-shadow: 0 0 14px 6px rgba(50,100,255,0.8), 0 0 30px 12px rgba(80,120,255,0.3);
+  animation: ledPulse 1.2s ease-in-out infinite alternate;
+  animation-delay: 0.4s;
+}
+.ldr-sensor-card:hover .led-b::after { background: rgba(255,255,255,0.45); }
+.ldr-sensor-card:hover .led-y {
+  background: #ffee22;
+  box-shadow: 0 0 14px 6px rgba(255,230,50,0.8), 0 0 30px 12px rgba(255,240,80,0.3);
+  animation: ledPulse 1.2s ease-in-out infinite alternate;
+  animation-delay: 0.6s;
+}
+.ldr-sensor-card:hover .led-y::after { background: rgba(255,255,255,0.45); }
+.ldr-sensor-card:hover .led-w {
+  background: #eeeeff;
+  box-shadow: 0 0 14px 6px rgba(220,220,255,0.9), 0 0 30px 12px rgba(200,200,255,0.4);
+  animation: ledPulse 1.2s ease-in-out infinite alternate;
+  animation-delay: 0.8s;
+}
+.ldr-sensor-card:hover .led-w::after { background: rgba(255,255,255,0.55); }
+.ldr-sensor-card:hover .led-p {
+  background: #ff44cc;
+  box-shadow: 0 0 14px 6px rgba(255,80,200,0.8), 0 0 30px 12px rgba(255,100,220,0.3);
+  animation: ledPulse 1.2s ease-in-out infinite alternate;
+  animation-delay: 1s;
+}
+.ldr-sensor-card:hover .led-p::after { background: rgba(255,255,255,0.45); }
+
+@keyframes ledPulse {
+  0%   { filter: brightness(0.85); }
+  100% { filter: brightness(1.2); }
+}
+
+.led-leg {
+  width: 2px; height: 14px;
+  background: #555;
+  border-radius: 1px;
+}
+.led-leg-l { width: 2px; height: 10px; }
+
+iframe-wrap { position: relative; }
+.ldr-sensor-card a { color: #f472b6; }
+
+/* ======================== */
+/* LEDS FLOTANTES OSCURIDAD */
+/* ======================== */
+.led-flt {
+  position: absolute;
+  border-radius: 50% 50% 35% 35%;
+  pointer-events: none;
+  opacity: 0;
+  animation: subirLed2 linear infinite;
+}
+@keyframes subirLed2 {
+  0%   { transform: translateY(100%) scale(1); opacity: 0; }
+  10%  { opacity: 0.95; }
+  85%  { opacity: 0.85; }
+  100% { transform: translateY(-120vh) scale(0.6); opacity: 0; }
 }
 </style>
 </head>
 <body>
+
+<!-- Overlay oscuro -->
+<div id="overlay-oscuro"></div>
+
+<!-- Container LEDs flotantes nocturnos -->
+<div id="leds-flotantes"></div>
+
+<!-- FOTOS FLOTANTES DECORATIVAS (LEDs y componentes apagados) -->
+<div class="floating-components" aria-hidden="true" id="float-bg"></div>
+
 <div class="container">
   <div class="header">
     <h1>Fotoresistencia y LED</h1>
@@ -149,9 +492,80 @@ margin-top:15px;
     </video>
   </div>
 
-  <!-- ✅ YouTube embed corregido: usar solo el ID del video -->
-  <div class="box">
-    <h2>🔗 Video de Referencia (YouTube)</h2>
+  <!-- ============================================ -->
+  <!-- CARD FOTORESISTENCIA INTERACTIVA (YouTube)   -->
+  <!-- ============================================ -->
+  <div class="ldr-sensor-card" id="ldr-card">
+
+    <h2>🔗 Video de Referencia — Sensor LDR activo</h2>
+
+    <!-- Hint -->
+    <div class="ldr-hint">
+      <div class="ldr-hint-dot"></div>
+      <span id="hint-txt">Pasa el cursor aquí para simular poca luz → LEDs encendidos</span>
+    </div>
+
+    <!-- LDR visual + barra de luz -->
+    <div class="ldr-visual-wrap">
+      <div class="ldr-component">
+        <div class="ldr-body">
+          <!-- zigzag SVG -->
+          <svg class="ldr-zigzag" viewBox="0 0 32 32" fill="none">
+            <polyline points="4,28 8,16 12,24 16,10 20,20 24,8 28,16" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="ldr-legs">
+          <div class="ldr-leg"></div>
+          <div class="ldr-leg" style="height:26px;"></div>
+        </div>
+        <div class="ldr-label">LDR / GL5528</div>
+      </div>
+
+      <div class="ldr-status">
+        <div class="ldr-status-title">NIVEL DE LUZ AMBIENTAL</div>
+        <div class="ldr-bar-wrap">
+          <div class="ldr-bar" id="ldr-bar"></div>
+        </div>
+        <div class="ldr-valor">
+          Valor analógico: <span id="ldr-val">724</span> / 1023
+        </div>
+        <div class="ldr-valor" style="margin-top:6px; font-size:12px;" id="led-estado">
+          Estado LED: <span style="color:#444;">APAGADO (mucha luz)</span>
+        </div>
+      </div>
+
+      <!-- LEDs apagados/encendidos -->
+      <div>
+        <div style="color:#666;font-size:11px;font-family:monospace;margin-bottom:8px;">OUTPUT LEDS</div>
+        <div class="leds-row">
+          <div class="led-bulb">
+            <div class="led-glass led-r"></div>
+            <div class="led-leg"></div><div class="led-leg led-leg-l"></div>
+          </div>
+          <div class="led-bulb">
+            <div class="led-glass led-g"></div>
+            <div class="led-leg"></div><div class="led-leg led-leg-l"></div>
+          </div>
+          <div class="led-bulb">
+            <div class="led-glass led-b"></div>
+            <div class="led-leg"></div><div class="led-leg led-leg-l"></div>
+          </div>
+          <div class="led-bulb">
+            <div class="led-glass led-y"></div>
+            <div class="led-leg"></div><div class="led-leg led-leg-l"></div>
+          </div>
+          <div class="led-bulb">
+            <div class="led-glass led-w"></div>
+            <div class="led-leg"></div><div class="led-leg led-leg-l"></div>
+          </div>
+          <div class="led-bulb">
+            <div class="led-glass led-p"></div>
+            <div class="led-leg"></div><div class="led-leg led-leg-l"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <iframe
       src="https://www.youtube.com/embed/4aKJAz0c_tM"
       allowfullscreen>
@@ -184,14 +598,8 @@ void loop() {
 }</div>
   </div>
 
-  <!-- ✅ IMAGEN CORREGIDA -->
   <div class="box foto-codigo">
     <h2>📷 Foto del Código</h2>
-    <!--
-      IMPORTANTE: el archivo de imagen debe llamarse exactamente "codigo2.png"
-      (sin tilde, sin espacios, sin doble extensión .png.png)
-      y estar en la misma carpeta que este archivo HTML.
-    -->
     <img
       src="codigo2.png.png"
       alt="Foto del código Arduino"
@@ -205,5 +613,110 @@ void loop() {
   </div>
 
 </div>
+
+<script>
+/* ---- FONDO FLOTANTE DECORATIVO ---- */
+const floatBg = document.getElementById('float-bg');
+const shapesApagados = [
+  `<svg width="30" height="50" viewBox="0 0 30 50"><ellipse cx="15" cy="15" rx="12" ry="14" fill="#5a1a1a" stroke="#333" stroke-width="1.5"/><rect x="12" y="29" width="2" height="14" fill="#666" rx="1"/><rect x="16" y="29" width="2" height="18" fill="#666" rx="1"/></svg>`,
+  `<svg width="30" height="50" viewBox="0 0 30 50"><ellipse cx="15" cy="15" rx="12" ry="14" fill="#1a3a1a" stroke="#333" stroke-width="1.5"/><rect x="12" y="29" width="2" height="14" fill="#666" rx="1"/><rect x="16" y="29" width="2" height="18" fill="#666" rx="1"/></svg>`,
+  `<svg width="30" height="50" viewBox="0 0 30 50"><ellipse cx="15" cy="15" rx="12" ry="14" fill="#1a1a3a" stroke="#333" stroke-width="1.5"/><rect x="12" y="29" width="2" height="14" fill="#666" rx="1"/><rect x="16" y="29" width="2" height="18" fill="#666" rx="1"/></svg>`,
+  `<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="#1e1e10" stroke="#555" stroke-width="1.5"/><path d="M8 16 Q20 4 32 16 Q20 28 8 16" fill="none" stroke="#444" stroke-width="1"/></svg>`,
+  `<svg width="60" height="20" viewBox="0 0 60 20"><line x1="0" y1="10" x2="10" y2="10" stroke="#666" stroke-width="1.5"/><rect x="10" y="5" width="40" height="10" fill="#2a2218" stroke="#555" stroke-width="1" rx="2"/><line x1="50" y1="10" x2="60" y2="10" stroke="#666" stroke-width="1.5"/></svg>`,
+];
+for (let i = 0; i < 18; i++) {
+  const el = document.createElement('div');
+  el.className = 'float-item';
+  el.innerHTML = shapesApagados[i % shapesApagados.length];
+  el.style.left = (Math.random() * 96) + '%';
+  el.style.animationDuration = (18 + Math.random() * 22) + 's';
+  el.style.animationDelay = (-Math.random() * 30) + 's';
+  el.style.transform = `rotate(${Math.random()*360}deg)`;
+  floatBg.appendChild(el);
+}
+
+/* ---- LEDS FLOTANTES NOCTURNOS ---- */
+const ledsContainer = document.getElementById('leds-flotantes');
+const coloresLed = [
+  { bg: '#ff2222', glow: 'rgba(255,50,50,0.9)' },
+  { bg: '#22ff44', glow: 'rgba(50,255,80,0.9)' },
+  { bg: '#2255ff', glow: 'rgba(50,100,255,0.9)' },
+  { bg: '#ffee22', glow: 'rgba(255,230,50,0.9)' },
+  { bg: '#eeeeff', glow: 'rgba(220,220,255,1)' },
+  { bg: '#ff44cc', glow: 'rgba(255,80,200,0.9)' },
+];
+let ledsActivos = [];
+
+function crearLedFlotante() {
+  const c = coloresLed[Math.floor(Math.random() * coloresLed.length)];
+  const size = 12 + Math.random() * 20;
+  const led = document.createElement('div');
+  led.className = 'led-flt';
+  led.style.cssText = `
+    width:${size}px;
+    height:${size * 1.3}px;
+    background:${c.bg};
+    box-shadow: 0 0 ${size}px ${size/2}px ${c.glow}, 0 0 ${size*2}px ${size}px ${c.glow.replace('0.9','0.3')};
+    left:${Math.random()*96}%;
+    bottom:-60px;
+    animation-duration:${4 + Math.random()*6}s;
+    animation-delay:${Math.random()*2}s;
+  `;
+  ledsContainer.appendChild(led);
+  ledsActivos.push(led);
+  setTimeout(() => {
+    if (led.parentNode) led.parentNode.removeChild(led);
+    ledsActivos = ledsActivos.filter(l => l !== led);
+  }, 8000);
+}
+
+let ledInterval = null;
+let oscuroActivo = false;
+
+/* ---- LDR CARD INTERACCIÓN ---- */
+const card = document.getElementById('ldr-card');
+const overlay = document.getElementById('overlay-oscuro');
+const ldrVal = document.getElementById('ldr-val');
+const ledEstado = document.getElementById('led-estado');
+const hintTxt = document.getElementById('hint-txt');
+
+function activarOscuridad() {
+  if (oscuroActivo) return;
+  oscuroActivo = true;
+  document.body.classList.add('oscuro');
+  overlay.classList.add('activo');
+  hintTxt.textContent = '🌑 Poca luz detectada — LEDs encendidos automáticamente';
+  ldrVal.textContent = '87';
+  ledEstado.innerHTML = 'Estado LED: <span style="color:#22ff44;text-shadow:0 0 8px #22ff44;">ENCENDIDO (poca luz)</span>';
+  ledInterval = setInterval(crearLedFlotante, 300);
+}
+
+function desactivarOscuridad() {
+  if (!oscuroActivo) return;
+  oscuroActivo = false;
+  document.body.classList.remove('oscuro');
+  overlay.classList.remove('activo');
+  hintTxt.textContent = 'Pasa el cursor aquí para simular poca luz → LEDs encendidos';
+  ldrVal.textContent = '724';
+  ledEstado.innerHTML = 'Estado LED: <span style="color:#444;">APAGADO (mucha luz)</span>';
+  clearInterval(ledInterval);
+  ledInterval = null;
+  ledsActivos.forEach(l => { if (l.parentNode) l.parentNode.removeChild(l); });
+  ledsActivos = [];
+}
+
+card.addEventListener('mouseenter', activarOscuridad);
+card.addEventListener('mouseleave', desactivarOscuridad);
+
+/* Animar barra LDR con el mouse dentro */
+card.addEventListener('mousemove', (e) => {
+  if (!oscuroActivo) return;
+  const rect = card.getBoundingClientRect();
+  const px = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  const val = Math.round(40 + px * 80);
+  document.getElementById('ldr-bar') && (document.getElementById('ldr-bar').style.width = val * 0.1 + '%');
+  ldrVal.textContent = Math.round(40 + px * 60);
+});
+</script>
 </body>
 </html>
